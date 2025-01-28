@@ -6,7 +6,7 @@ This is an experimental implementation of dark mode for plotting libraries in Qu
 
 Implemented in Quarto's "user-land", i.e. Lua and CSS, without any changes to Quarto.
 
-The objective for all engines is to produce `img.quarto-light-image` and `img.quarto-dark-image` next to each other (inside `figure > p` currently). Then they can easily and safely be swapped using
+The objective for all engines is to produce HTML with `img.quarto-light-image` and `img.quarto-dark-image` next to each other (inside `figure > p` currently). Then they can easily and safely be swapped using
 
 ```css
 body.quarto-light img.quarto-dark-image {

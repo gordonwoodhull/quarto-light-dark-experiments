@@ -30,10 +30,10 @@ start_cell <- function()
   cat(paste0('::: {.cell}\n'))
 
 start_plot <- function(marker) {
-  cat(paste0('::: {.cell-output-display}\n[]{.', marker, '}\n:::\n\n::: {.cell-output-display}\n'))
+  cat(paste0('::: {.cell-output-display .', marker, '}\n'))
 }
 end_cell <- end_plot <- function()
-  cat('\n:::\n\n')
+  cat('\n:::\n')
 ```
 
 ## ggplot
