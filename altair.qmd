@@ -1,0 +1,84 @@
+---
+title: "jupyter dark mode - altair"
+engine: jupyter
+format:
+  html:
+    css: light-dark.css
+    theme:
+      light: united
+      dark: slate
+keep-md: true
+filters:
+  - light-dark-jupyter.lua
+---
+
+```{python}
+#| echo: false
+#|
+# import altair with an abbreviated alias
+import altair as alt
+
+# Define a custom theme function
+import yaml
+import tempfile
+import os
+import matplotlib.pyplot as plt
+from IPython.display import display, Markdown
+import functools
+
+def my_theme(brand_yml):
+    brand = yaml.safe_load(open(brand_yml).read())
+    fg = brand["color"]["foreground"]
+    bg = brand["color"]["background"]
+    return {
+        'config': {
+            'view': {'stroke': 'transparent'},
+            'axis': {
+                'domainColor': fg,
+                'labelColor': fg,
+                'titleColor': fg,
+            },
+            'legend': {
+                'labelColor': fg,
+                'titleColor': fg,
+            },
+            'background': bg,  # Background color
+        }
+    }
+
+united_theme = functools.partial(my_theme, 'united-brand.yml')
+slate_theme = functools.partial(my_theme, 'slate-brand.yml')
+
+# Register the custom theme and enable it
+alt.renderers.enable('svg')
+alt.themes.register('united_theme', united_theme)
+alt.themes.register('slate_theme', slate_theme)
+
+
+# load a sample dataset as a pandas DataFrame
+from vega_datasets import data
+cars = data.cars()
+
+display(Markdown('[]{.quarto-light-marker}'))
+alt.themes.enable('united_theme')
+
+# make the chart
+display(alt.Chart(cars).mark_point().encode(
+    x='Horsepower',
+    y='Miles_per_Gallon',
+    color='Origin',
+).interactive())
+
+
+display(Markdown('[]{.quarto-dark-marker}'))
+alt.themes.enable('slate_theme')
+
+# make the chart
+display(alt.Chart(cars).mark_point().encode(
+    x='Horsepower',
+    y='Miles_per_Gallon',
+    color='Origin',
+).interactive())
+```
+
+{{< lipsum 2 >}}
