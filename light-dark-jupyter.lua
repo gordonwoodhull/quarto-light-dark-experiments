@@ -10,10 +10,13 @@ function Div(div)
       quarto.log.output('dark', darkDiv)
     end
     if lightDiv and darkDiv then
+      local lightImage = quarto.utils.match("[1]/Para/[1]/Image")(lightDiv)
       local darkImage = quarto.utils.match("[1]/Para/[1]/Image")(darkDiv)
       local lightPara = quarto.utils.match("[1]/{Para}/[1]/Image")(lightDiv)[1]
       lightPara.content:insert(darkImage)
       darkDiv.content = pandoc.Blocks({})
+      lightImage.classes:insert 'quarto-light-image'
+      darkImage.classes:insert 'quarto-dark-image'
       lightDiv = nil
       darkDiv = nil
       changed = true
