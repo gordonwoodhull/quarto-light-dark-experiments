@@ -1,6 +1,6 @@
-body.quarto-light img[src$="output-2\.png"] {
+body.quarto-light img[src$="output-4\.png"] {
   display: none;
 }
-body.quarto-dark img[src$="output-1\.png"] {
+body.quarto-dark img[src$="output-2\.png"] {
   display: none;
 }

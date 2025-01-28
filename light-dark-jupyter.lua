@@ -1,18 +1,23 @@
 function Div(div)
-  local cod1 = quarto.utils.match(".cell/[1]/.cell-output-display")(div)
-  local cod2 = quarto.utils.match(".cell/[2]/.cell-output-display")(div)
-
-  if cod1 and cod2 then
-    local imgPat = '.cell-output-display/[1]/[1]/Image'
-    local image1 = quarto.utils.match(imgPat)(cod1)
-    local image2 = quarto.utils.match(imgPat)(cod2)
-    if image1 and image2 then
-      local image1par = quarto.utils.match('.cell-output-display/[1]/')(cod1)
-      local image2par = quarto.utils.match('.cell-output-display/[1]/')(cod2)
-      quarto.log.output('images', image1par, image2par)
-      image1par.content:insert(image2)
-      image2par.content = pandoc.Inlines({})
-      return div
+  if not quarto.utils.match(".cell") then return nil end
+  local lightDiv, darkDiv, changed
+  for i, cod in ipairs(div.content) do
+    if quarto.utils.match(".cell-output-display/[1]/Para/[1]/Span/.quarto-light-marker")(cod) then
+      lightDiv = div.content[i+1]
+      quarto.log.output('light', lightDiv)
+    elseif quarto.utils.match(".cell-output-display/[1]/Para/[1]/Span/.quarto-dark-marker")(cod) then
+      darkDiv = div.content[i+1]
+      quarto.log.output('dark', darkDiv)
+    end
+    if lightDiv and darkDiv then
+      local darkImage = quarto.utils.match("[1]/Para/[1]/Image")(darkDiv)
+      local lightPara = quarto.utils.match("[1]/{Para}/[1]/Image")(lightDiv)[1]
+      lightPara.content:insert(darkImage)
+      darkDiv.content = pandoc.Blocks({})
+      lightDiv = nil
+      darkDiv = nil
+      changed = true
     end
   end
+  return changed and div
 end

@@ -21,6 +21,7 @@ import yaml
 import tempfile
 import os
 import matplotlib.pyplot as plt
+from IPython.display import display, Markdown
 
 def mplstyle_from_brand(brand_file):
     brand = yaml.safe_load(brand_file.read())
@@ -40,14 +41,17 @@ def mplstyle_from_brand(brand_file):
     plt.style.use(name)
     os.unlink(name)
 
+display(Markdown('[]{.quarto-light-marker}'))
 with open("united-brand.yml") as brand_file:
     mplstyle_from_brand(brand_file)
 plt.title("Hello")
 plt.plot([1,2,3])
+plt.show(block=False)
 
 with open("slate-brand.yml") as brand_file:
     mplstyle_from_brand(brand_file)
 plt.figure()
+display(Markdown('[]{.quarto-dark-marker}'))
 plt.title("Hello")
 plt.plot([1,2,3])
 ```
