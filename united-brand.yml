@@ -1,0 +1,10 @@
+color:
+  background: "#fff"
+  foreground: "#333"
+  primary: red
+typography:
+  fonts:
+    - family: "Montserrat"
+      source: google
+  base:
+    family: "Montserrat"
