@@ -21,11 +21,11 @@ body.quarto-dark img.quarto-light-image {
 
 See also: [Experiments with dark mode in Quarto's knitr engine](https://github.com/gordonwoodhull/dark-mode-experiments-knitr)
 
-### Emitting markdown
+### Emitting **marker spans** in Markdown
 
 In Jupyter, we have to run code for each of the plots; there is no way that we know to replay plots with different color themes.
 
-We also don't want to ask users to wrap their plots in something that generates complicated Markdown around it; we want to use the familiar plot output that looks like
+We also don't want to ask users to wrap their plots in something that generates complicated Markdown around it; we want to use the familiar "interctive" plot commands that produce output like
 
 ```markdown
 ::: {.cell-output .cell-output-display}
@@ -33,7 +33,7 @@ We also don't want to ask users to wrap their plots in something that generates 
 :::
 ```
 
-when it is emitted as Pandoc markdown.
+when emitted as Pandoc markdown by Quarto's Jupyter engine.
 
 Also we have the restriction that without changing the Jupyter engine, there is no way to emit any structural elements, e.g. fenced divs, _around_ a plot output.
 
@@ -75,6 +75,8 @@ We also need to remove the empty `darkDiv`, and possibly the markers, but it's i
 ## Future
 
 It should be possible to put this stuff, along with stuff specific to plotting libraries, into a Python library using `with` statement and context managers.
+
+There also will be succinct and Pythonic patterns to have the same code run twice over light and dark mode, rather than duplicating the plotting code.
 
 First priority is to validate the basic design across other Python plotting libraries, before cleaning up.
 
