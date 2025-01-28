@@ -17,14 +17,17 @@ function Div(div)
       quarto.log.output('GO', darkDiv)
       local lightImage = quarto.utils.match("[1]/Para/[1]/Image")(lightDiv)
       local darkImage = quarto.utils.match("[1]/Para/[1]/Image")(darkDiv)
-      local lightPara = quarto.utils.match("[1]/{Para}/[1]/Image")(lightDiv)[1]
-      lightPara.content:insert(darkImage)
-      darkDiv.content = pandoc.Blocks({})
-      lightImage.classes:insert 'quarto-light-image'
-      darkImage.classes:insert 'quarto-dark-image'
-      lightDiv = nil
-      darkDiv = nil
-      changed = true
+      local lightPara = quarto.utils.match("[1]/{Para}/[1]/Image")(lightDiv)
+      if lightImage and darkImage and lightPara then
+        lightPara = lightPara[1]
+        lightPara.content:insert(darkImage)
+        darkDiv.content = pandoc.Blocks({})
+        lightImage.classes:insert 'quarto-light-image'
+        darkImage.classes:insert 'quarto-dark-image'
+        lightDiv = nil
+        darkDiv = nil
+        changed = true
+      end
     end
   end
   return changed and div

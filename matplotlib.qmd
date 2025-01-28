@@ -1,4 +1,5 @@
 ---
+title: "jupyter dark mode - matplotlib"
 engine: jupyter
 format:
   html:
@@ -6,10 +7,6 @@ format:
     theme:
       light: united
       dark: slate
-# desired
-# brand:
-#   light: light-brand.yml
-#   dark: dark-brand.yml
 keep-md: true
 filters:
   - light-dark-jupyter.lua

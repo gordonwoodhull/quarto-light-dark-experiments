@@ -49,6 +49,8 @@ def my_theme(brand_yml):
 united_theme = functools.partial(my_theme, 'united-brand.yml')
 slate_theme = functools.partial(my_theme, 'slate-brand.yml')
 
+marker_themes = [('quarto-light-marker', 'united_theme'), ('quarto-dark-marker', 'slate_theme')]
+
 # Register the custom theme and enable it
 alt.renderers.enable('svg')
 alt.themes.register('united_theme', united_theme)
@@ -59,26 +61,16 @@ alt.themes.register('slate_theme', slate_theme)
 from vega_datasets import data
 cars = data.cars()
 
-display(Markdown('[]{.quarto-light-marker}'))
-alt.themes.enable('united_theme')
+for marker, theme in marker_themes:
+    display(Markdown('[]{.' + marker + '}'))
+    alt.themes.enable(theme)
 
-# make the chart
-display(alt.Chart(cars).mark_point().encode(
-    x='Horsepower',
-    y='Miles_per_Gallon',
-    color='Origin',
-).interactive())
-
-
-display(Markdown('[]{.quarto-dark-marker}'))
-alt.themes.enable('slate_theme')
-
-# make the chart
-display(alt.Chart(cars).mark_point().encode(
-    x='Horsepower',
-    y='Miles_per_Gallon',
-    color='Origin',
-).interactive())
+    # make the chart
+    display(alt.Chart(cars).mark_point().encode(
+        x='Horsepower',
+        y='Miles_per_Gallon',
+        color='Origin',
+    ).interactive())
 ```
 
 {{< lipsum 2 >}}
