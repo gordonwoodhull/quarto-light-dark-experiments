@@ -2,7 +2,7 @@
 
 ## Overview
 
-Experimental implementation of dark mode for plotting libraries in Quarto's Jupyter engine and Python, although the same approach should work for any Jupyter languages that emit Markdown.
+This is an experimental implementation of dark mode for plotting libraries in Quarto's Jupyter engine and Python. The same approach should work for any Jupyter languages by emitting the same **marker spans** via Markdown.
 
 Implemented in Quarto's "user-land", i.e. Lua and CSS, without any changes to Quarto.
 
@@ -52,7 +52,7 @@ will be wrapped in `.cell-output-display.cell-output-markdown`
 :::
 ```
 
-So we emit the (hopefully harmless and invisible?) marker `cell-output-display`
+So we emit the (hopefully harmless and invisible?) **marker span**
 
 ```markdown
 ::: {.cell-output .cell-output-display .cell-output-markdown}
