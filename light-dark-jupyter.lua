@@ -12,7 +12,6 @@ function Div(div)
       darkDiv = div.content[i+1]
     end
     if lightDiv and darkDiv then
-      quarto.log.output('GO', darkDiv)
       local lightContent = lightDiv.content[1]
       local darkContent = darkDiv.content[1]
       if lightContent and darkContent then
