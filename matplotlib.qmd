@@ -51,6 +51,7 @@ plt.figure()
 display(Markdown('[]{.quarto-dark-marker}'))
 plt.title("Hello")
 plt.plot([1,2,3])
+plt.show(block=False)
 ```
 
 Here's a [link](https://example.com).

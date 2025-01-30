@@ -24,7 +24,7 @@ We'll create a violin plot to visualize the distribution of measurements across 
 
 ```{python}
 import yaml
-from IPython.display import display, Markdown
+from light_dark import LightDark
 from plotnine import *
 import pandas as pd
 from sklearn.datasets import load_iris
@@ -39,25 +39,24 @@ def load_brand_theme(brand_yml):
 theme_united = load_brand_theme('united-brand.yml')
 theme_slate = load_brand_theme('slate-brand.yml')
 
-marker_themes = [('quarto-light-marker', theme_united), ('quarto-dark-marker', theme_slate)]
-
 
 # Load the iris dataset
 iris = load_iris()
 iris_df = pd.DataFrame(iris.data, columns=iris.feature_names)
 iris_df['species'] = pd.Categorical(iris.target_names[iris.target])
 
-for marker, theme in marker_themes:
-  display(Markdown('[]{.' + marker + '}'))
-
-  # Create the violin plot
-  display((ggplot(iris_df, aes(x='species', y='sepal length (cm)', fill='species'))
+plot = (ggplot(iris_df, aes(x='species', y='sepal length (cm)', fill='species'))
     + geom_violin()
     + labs(title='Distribution of Sepal Length by Iris Species',
             x='Species',
             y='Sepal Length (cm)')
-    + theme_minimal() + theme
-    ).draw())
+    + theme_minimal())
+
+print('plot has', '\n'.join(dir(plot.draw())))
+# LightDark(
+#     (plot + theme_united).draw(),
+#     (plot + theme_slate).draw()
+# )
 ```
 
 This code:

@@ -23,7 +23,7 @@ import yaml
 import tempfile
 import os
 import matplotlib.pyplot as plt
-from IPython.display import display, Markdown
+from light_dark import LightDarkStateful
 import functools
 
 def my_theme(brand_yml):
@@ -46,8 +46,14 @@ def my_theme(brand_yml):
         }
     }
 
+def apply_theme(theme):
+    alt.themes.enable(theme)
+
 united_theme = functools.partial(my_theme, 'united-brand.yml')
 slate_theme = functools.partial(my_theme, 'slate-brand.yml')
+
+apply_united = functools.partial(apply_theme, 'united_theme')
+apply_slate = functools.partial(apply_theme, 'slate_theme')
 
 marker_themes = [('quarto-light-marker', 'united_theme'), ('quarto-dark-marker', 'slate_theme')]
 
@@ -61,16 +67,15 @@ alt.themes.register('slate_theme', slate_theme)
 from vega_datasets import data
 cars = data.cars()
 
-for marker, theme in marker_themes:
-    display(Markdown('[]{.' + marker + '}'))
-    alt.themes.enable(theme)
-
-    # make the chart
-    display(alt.Chart(cars).mark_point().encode(
+LightDarkStateful(
+    apply_united,
+    apply_slate,
+    alt.Chart(cars).mark_point().encode(
         x='Horsepower',
         y='Miles_per_Gallon',
         color='Origin',
-    ).interactive())
+    ).interactive()
+)
 ```
 
 {{< lipsum 2 >}}

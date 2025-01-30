@@ -24,6 +24,7 @@ Plotly is an interactive plotting library that is ideal for creating detailed in
 # Code
 
 ```{python}
+#| echo: false
 import yaml
 import plotly.graph_objects as go
 import plotly.io as pio
@@ -42,6 +43,7 @@ marker_themes = [('quarto-light-marker', 'united_brand'), ('quarto-dark-marker',
 ```
 
 ```{python}
+#| echo: false
 import plotly.express as px
 import pandas as pd
 from sklearn.datasets import load_iris
