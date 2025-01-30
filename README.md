@@ -8,7 +8,9 @@ Implemented in Quarto's "user-land", i.e. Lua and CSS, without any changes to Qu
 
 The same approach should work for any Jupyter languages by emitting the same **marker spans** via Markdown.
 
-The Jupyter markdown is slightly more complicated than the [knitr markdown](#knitr-implementation), because of constraints described in the [Jupyter section](#jupyter-implementation).
+The Jupyter markdown is slightly more complicated than the [knitr markdown](#knitr-implementation), because of constraints described in [Jupyter implementation](#jupyter-implementation).
+
+## Objective
 
 The objective for all engines is to produce a div with two items classed `.quarto-light-content` and `.quarto-dark-content` next to each other (inside `figure > p` currently).
 
