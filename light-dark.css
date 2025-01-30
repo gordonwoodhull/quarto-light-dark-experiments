@@ -1,6 +1,6 @@
-body.quarto-light img.quarto-dark-image {
+body.quarto-light .quarto-dark-content {
   display: none;
 }
-body.quarto-dark img.quarto-light-image {
+body.quarto-dark .quarto-light-content {
   display: none;
 }

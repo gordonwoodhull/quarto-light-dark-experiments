@@ -6,24 +6,36 @@ function Div(div)
       lightDiv = cod
     elseif quarto.utils.match(".cell-output-display/[1]/Para/[1]/Span/.quarto-light-marker")(cod) then
       lightDiv = div.content[i+1]
-      -- quarto.log.output('light', lightDiv)
     elseif quarto.utils.match(".cell-output-display/.quarto-dark-marker")(cod) then
       darkDiv = cod
     elseif quarto.utils.match(".cell-output-display/[1]/Para/[1]/Span/.quarto-dark-marker")(cod) then
       darkDiv = div.content[i+1]
-      -- quarto.log.output('dark', darkDiv)
     end
     if lightDiv and darkDiv then
       quarto.log.output('GO', darkDiv)
-      local lightImage = quarto.utils.match("[1]/Para/[1]/Image")(lightDiv)
-      local darkImage = quarto.utils.match("[1]/Para/[1]/Image")(darkDiv)
-      local lightPara = quarto.utils.match("[1]/{Para}/[1]/Image")(lightDiv)
-      if lightImage and darkImage and lightPara then
-        lightPara = lightPara[1]
-        lightPara.content:insert(darkImage)
-        darkDiv.content = pandoc.Blocks({})
-        lightImage.classes:insert 'quarto-light-image'
-        darkImage.classes:insert 'quarto-dark-image'
+      local lightContent = lightDiv.content[1]
+      local darkContent = darkDiv.content[1]
+      if lightContent and darkContent then
+        local lightType = pandoc.utils.type(lightContent)
+        local darkType = pandoc.utils.type(darkContent)
+        quarto.log.output('light type', lightType)
+
+        if lightType ~= darkType then
+          quarto.log.warning('light/dark content different types', lightType, darkType)
+        elseif lightType == "Para" then
+          lightContent.content[1].classes:insert 'quarto-light-content'
+          darkContent.content[1].classes:insert 'quarto-dark-content'
+          lightContent.content:insert(darkContent.content[1])
+          darkDiv.content = pandoc.Blocks({})
+        elseif lightType == "Block" then
+          lightDiv.content = pandoc.Blocks({
+            pandoc.Div(lightContent, pandoc.Attr("", {'quarto-light-content'}, {})),
+            pandoc.Div(darkContent, pandoc.Attr("", {'quarto-dark-content'}, {}))
+          })
+          darkDiv.content = pandoc.Blocks({})
+        else
+          quarto.log.warning('do not know how to handle content type', lightType)
+        end
         lightDiv = nil
         darkDiv = nil
         changed = true
