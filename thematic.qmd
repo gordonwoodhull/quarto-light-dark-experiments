@@ -39,7 +39,7 @@ end_cell <- end_plot <- function()
 ## ggplot
 
 ```{r}
-#| results: asis
+#| output: asis
 start_cell()
 thematic_brand('united-brand.yml')
 start_plot('quarto-light-marker')
