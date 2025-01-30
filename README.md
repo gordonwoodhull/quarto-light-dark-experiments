@@ -1,18 +1,24 @@
-# Experiments with dark mode in Quarto's Jupyter engine
+# Experiments with dark mode using fenced divs in Pandoc markdown
 
 ## Overview
 
-This is an experimental implementation of dark mode for plotting libraries in Quarto's Jupyter engine and Python. The same approach should work for any Jupyter languages by emitting the same **marker spans** via Markdown.
+This is an experimental implementation of dark mode for plotting libraries in Quarto's Jupyter and knitr engines, using fenced divs to identify the light and dark content.
+
+The same approach should work for any Jupyter languages by emitting the same **marker spans** via Markdown.
+
+The Jupyter markdown is slightly more complicated than the [knitr markdown]{#knitr-implementation}, because of constraints described in the [Jupyter section]{#jupyter-implementation}.
 
 Implemented in Quarto's "user-land", i.e. Lua and CSS, without any changes to Quarto.
 
-The objective for all engines is to produce HTML with `img.quarto-light-image` and `img.quarto-dark-image` next to each other (inside `figure > p` currently). Then they can easily and safely be swapped using
+The objective for all engines is to produce a div with two items classed `.quarto-light-content` and `.quarto-dark-content` next to each other (inside `figure > p` currently).
+
+Then they can easily and safely be swapped using
 
 ```css
-body.quarto-light img.quarto-dark-image {
+body.quarto-light .quarto-dark-content {
   display: none;
 }
-body.quarto-dark img.quarto-light-image {
+body.quarto-dark .quarto-light-content {
   display: none;
 }
 ```
@@ -62,13 +68,36 @@ So we emit the (hopefully harmless and invisible?) **marker span**
 
 (or corresponding `.quarto-dark-marker`) before the `.cell-output-display` with the plot we want.
 
-### Lua processing
+## knitr implementation
 
-We loop though each cell, looking for the `cell-output-display`s containing `span.quarto-light-marker` or `span.quarto-dark-marker`.
+For knitr, we can use `output: asis` and output simpler markdown with `.quarto-light-marker` and `.quarto-dark-marker` applied directly to the the `.cell-output-display` divs, e.g.
 
-The next div is a `lightDiv` or `darkDiv`, so remember it. If we have both a `lightDiv` and a `darkDiv`, we move the dark image in with the light image.
+```markdown
+::: {.cell}
+::: {.cell-output-display .quarto-light-marker}
+![](thematic_files/figure-html/unnamed-chunk-3-1.png){width=672}
+:::
+::: {.cell-output-display .quarto-dark-marker}
+![](thematic_files/figure-html/unnamed-chunk-3-2.png){width=672}
+:::
+```
 
-This is maybe not robust if light or dark images are missing. Conceivably we could add structure by also having e.g. `quarto-plot-start-marker`.
+## Lua processing
+
+We loop though the contents of each `div.cell`
+
+- for Jupyter content, we look for the `cell-output-display`s containing `span.quarto-light-marker` or `span.quarto-dark-marker`.
+  The next div is a `lightDiv` or `darkDiv`, so remember it.
+- for knitr content, the `lightDiv` is a `div.cell-output-display.quarto-light-marker`, and respectively for darkDiv
+
+If we have both a `lightDiv` and a `darkDiv`, we move the content of the dark div in with the light div.
+
+We support two kinds of content:
+
+- Paragraphs containing one item, probably an image. We class that item `.quarto-light-content` or `.quarto-dark-content`
+- Raw blocks, probably HTML. We enclose them in `div.quarto-light-content` or `div.quarto-dark-content`
+
+This is maybe not robust if light or dark content is missing. Conceivably we could add structure by also having e.g. `quarto-plot-start-marker`.
 
 We also need to remove the empty `darkDiv`, and possibly the markers, but it's in a loop and I don't want to think about that until we've validated this somewhat.
 
