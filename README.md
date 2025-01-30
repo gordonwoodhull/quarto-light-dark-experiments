@@ -2,13 +2,13 @@
 
 ## Overview
 
-This is an experimental implementation of dark mode for plotting libraries in Quarto's Jupyter and knitr engines, using fenced divs to identify the light and dark content.
+This is an experimental implementation of dark mode for plotting and table libraries in Quarto's Jupyter and knitr engines, using fenced divs to identify the light and dark content.
+
+Implemented in Quarto's "user-land", i.e. Lua and CSS, without any changes to Quarto.
 
 The same approach should work for any Jupyter languages by emitting the same **marker spans** via Markdown.
 
-The Jupyter markdown is slightly more complicated than the [knitr markdown]{#knitr-implementation}, because of constraints described in the [Jupyter section]{#jupyter-implementation}.
-
-Implemented in Quarto's "user-land", i.e. Lua and CSS, without any changes to Quarto.
+The Jupyter markdown is slightly more complicated than the [knitr markdown](#knitr-implementation), because of constraints described in the [Jupyter section](#jupyter-implementation).
 
 The objective for all engines is to produce a div with two items classed `.quarto-light-content` and `.quarto-dark-content` next to each other (inside `figure > p` currently).
 
