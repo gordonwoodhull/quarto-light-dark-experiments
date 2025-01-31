@@ -24,7 +24,7 @@ plotly_brand <- function(brand_yml) {
   return (function(plot)
     plot |> layout(paper_bgcolor = brand$color$background,
       plot_bgcolor = brand$color$background,
-      font_color=brand$color$foreground
+      font = list(color = brand$color$foreground)
   ))
 }
 united_theme <- plotly_brand('united-brand.yml')
