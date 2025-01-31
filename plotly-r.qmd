@@ -31,13 +31,17 @@ united_theme <- plotly_brand('united-brand.yml')
 slate_theme <- plotly_brand('slate-brand.yml')
 
 start_cell <- function()
-  cat(paste0('::: {.cell}\n'))
+  cat(paste0('::: {.cell}\n::: {.quarto-light-dark-container}\n'))
 
 start_plot <- function(marker) {
   cat(paste0('::: {.cell-output-display .', marker, '}\n'))
 }
-end_cell <- end_plot <- function()
+end_div <- end_plot <- function()
   cat('\n:::\n')
+end_cell <- function() {
+  end_div()
+  end_div()
+}
 ```
 
 ```{r}

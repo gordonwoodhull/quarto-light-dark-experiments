@@ -1,5 +1,5 @@
 function Div(div)
-  if not quarto.utils.match(".quarto-light-dark-container") then return nil end
+  if not quarto.utils.match(".quarto-light-dark-container")(div) then return nil end
   local lightDiv, darkDiv, changed
   for i, cod in ipairs(div.content) do
     if quarto.utils.match(".quarto-light-marker")(cod) then
