@@ -60,8 +60,8 @@ class LightDarkStateful:
     self.chart = chart
 
   def _repr_markdown_(self):
-    self.apply_light()
+    self.apply_light(self.chart)
     light_markdown = as_markdown(self.chart)
-    self.apply_dark()
+    self.apply_dark(self.chart)
     dark_markdown = as_markdown(self.chart)
     return compose_light_dark_container(light_markdown, dark_markdown)

@@ -46,7 +46,8 @@ pio.templates['slate_brand'] = plotly_brand('slate-brand.yml')
 import plotly.express as px
 import pandas as pd
 from sklearn.datasets import load_iris
-from light_dark import LightDark
+from light_dark import LightDarkStateful
+from functools import partial
 
 
 # Load the iris dataset
@@ -54,14 +55,15 @@ iris_data = load_iris()
 iris_df = pd.DataFrame(data=iris_data.data, columns=iris_data.feature_names)
 iris_df['species'] = pd.Categorical.from_codes(iris_data.target, iris_data.target_names)
 
+def apply_theme(theme, plot):
+  plot.update_layout(template=theme)
+
 # Plotting
-LightDark(
+LightDarkStateful(
+  partial(apply_theme, 'united_brand'),
+  partial(apply_theme, 'slate_brand'),
   px.violin(iris_df, x='species', y='sepal length (cm)', box=True, points="all",
-                title='Violin Plot of Sepal Length in Iris Dataset',
-                template='united_brand'),
-  px.violin(iris_df, x='species', y='sepal length (cm)', box=True, points="all",
-                title='Violin Plot of Sepal Length in Iris Dataset',
-                template='slate_brand'))
+                title='Violin Plot of Sepal Length in Iris Dataset'))
 ```
 
 This code uses `plotly.express` to create a violin plot of the sepal length by species from the Iris dataset. The `sepal length (cm)` is plotted on the Y-axis, with each species on the X-axis. The violin plot provides insights into the distribution of sepal length measurements within each species, along with a box plot overlay and individual measurements as jittered points for detailed data analysis.
