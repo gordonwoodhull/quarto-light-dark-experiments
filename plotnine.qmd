@@ -52,7 +52,8 @@ plot = (ggplot(iris_df, aes(x='species', y='sepal length (cm)', fill='species'))
             y='Sepal Length (cm)')
     + theme_minimal())
 
-print('plot has', '\n'.join(dir(plot.draw())))
+display((plot + theme_united).draw())
+#print('plot has', '\n'.join(dir(plot.draw())))
 # LightDark(
 #     (plot + theme_united).draw(),
 #     (plot + theme_slate).draw()

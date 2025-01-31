@@ -1,14 +1,34 @@
-def as_markdown(x):
-  if hasattr(x, '_repr_markdown_'):
-    return x._repr_markdown_()
-  elif hasattr(x, '_repr_html_'):
+from base64 import b64encode
+
+def html_as_markdown(html):
     return '\n'.join([
       '```{=html}',
-      x._repr_html_(),
+      html,
       '```',
       ''
     ])
 
+def image_as_markdown(mimetype, content):
+  return f'![](data:{mimetype};base64,{b64encode(content.encode('utf8')).decode('ascii')})'
+
+def as_markdown(x):
+  if hasattr(x, '_repr_mimebundle_'):
+    bundle = x._repr_mimebundle_()
+    if len(bundle.keys()) > 1:
+      print("warning: don't know how to handle multiple mimetype, ", bundle.keys())
+    # return '```\n' + '\n'.join(bundle.keys()) + '\n```\n'
+    mimetype = next(iter(bundle.keys()))
+    content = bundle[mimetype]
+    match mimetype:
+      case 'text/html': return html_as_markdown(content)
+      case 'image/svg+xml': return image_as_markdown(mimetype, content)
+      case _:
+        print("warning: don't know mimetype", mimetype)
+        return f'_{mimetype}_'
+  elif hasattr(x, '_repr_markdown_'):
+    return x._repr_markdown_()
+  elif hasattr(x, '_repr_html_'):
+    return html_as_markdown(x._repr_html_())
 def compose_light_dark_container(light_markdown, dark_markdown):
   return '\n'.join([
     '::: {.quarto-light-dark-container}',
@@ -25,8 +45,6 @@ def compose_light_dark_container(light_markdown, dark_markdown):
 
 class LightDark:
   def __init__(self, light, dark):
-    print('LIGHT HAS')
-    print(dir(light))
     self.light = light
     self.dark = dark
 

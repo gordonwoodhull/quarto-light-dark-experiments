@@ -74,7 +74,7 @@ LightDarkStateful(
         x='Horsepower',
         y='Miles_per_Gallon',
         color='Origin',
-    ).interactive()
+    ).properties(width=800, height=500).interactive()
 )
 ```
 

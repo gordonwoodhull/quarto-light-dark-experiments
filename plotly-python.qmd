@@ -28,6 +28,7 @@ Plotly is an interactive plotting library that is ideal for creating detailed in
 import yaml
 import plotly.graph_objects as go
 import plotly.io as pio
+from functools import partial
 
 def plotly_brand(brand_yml):
   brand = yaml.safe_load(open(brand_yml).read())
@@ -38,8 +39,6 @@ def plotly_brand(brand_yml):
   }})
 pio.templates['united_brand'] = plotly_brand('united-brand.yml')
 pio.templates['slate_brand'] = plotly_brand('slate-brand.yml')
-
-marker_themes = [('quarto-light-marker', 'united_brand'), ('quarto-dark-marker', 'slate_brand')]
 ```
 
 ```{python}
@@ -47,7 +46,7 @@ marker_themes = [('quarto-light-marker', 'united_brand'), ('quarto-dark-marker',
 import plotly.express as px
 import pandas as pd
 from sklearn.datasets import load_iris
-from IPython.display import display, Markdown
+from light_dark import LightDark
 
 
 # Load the iris dataset
@@ -56,12 +55,13 @@ iris_df = pd.DataFrame(data=iris_data.data, columns=iris_data.feature_names)
 iris_df['species'] = pd.Categorical.from_codes(iris_data.target, iris_data.target_names)
 
 # Plotting
-for marker, theme in marker_themes:
-  display(Markdown('[]{.' + marker + '}'))
-  pio.templates.default = theme
-  fig = px.violin(iris_df, x='species', y='sepal length (cm)', box=True, points="all",
-                title='Violin Plot of Sepal Length in Iris Dataset')
-  fig.show()
+LightDark(
+  px.violin(iris_df, x='species', y='sepal length (cm)', box=True, points="all",
+                title='Violin Plot of Sepal Length in Iris Dataset',
+                template='united_brand'),
+  px.violin(iris_df, x='species', y='sepal length (cm)', box=True, points="all",
+                title='Violin Plot of Sepal Length in Iris Dataset',
+                template='slate_brand'))
 ```
 
 This code uses `plotly.express` to create a violin plot of the sepal length by species from the Iris dataset. The `sepal length (cm)` is plotted on the Y-axis, with each species on the X-axis. The violin plot provides insights into the distribution of sepal length measurements within each species, along with a box plot overlay and individual measurements as jittered points for detailed data analysis.
