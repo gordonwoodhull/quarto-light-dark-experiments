@@ -1,5 +1,5 @@
 ---
-title: "jupyter dark mode - altair"
+title: "jupyter dark mode - plotnine"
 author: "anthropic claude-3-5-sonnet-latest"
 date: "2025-01-22 14:25:54.403762"
 engine: jupyter
@@ -24,6 +24,7 @@ We'll create a violin plot to visualize the distribution of measurements across 
 
 ```{python}
 import yaml
+import inspect
 from light_dark import LightDark
 from plotnine import *
 import pandas as pd
@@ -52,11 +53,22 @@ plot = (ggplot(iris_df, aes(x='species', y='sepal length (cm)', fill='species'))
             y='Sepal Length (cm)')
     + theme_minimal())
 
-display((plot + theme_united).draw())
-#print('plot has', '\n'.join(dir(plot.draw())))
+# returns None
+# print(plot.draw()._repr_html_())
+
+# print(inspect.getfullargspec(plot.draw()._repr_html_))
+# FullArgSpec(args=['self'], varargs=None, varkw=None, defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
+
+# works
+# display(plot + theme_slate)
+
+# print('plot has', '\n'.join(dir(plot.draw())))
+# plotnine-props.txt in repo
+
+# TypeError: sequence item 2: expected str instance, NoneType found
 # LightDark(
-#     (plot + theme_united).draw(),
-#     (plot + theme_slate).draw()
+#     plot + theme_united,
+#     plot + theme_slate
 # )
 ```
 
