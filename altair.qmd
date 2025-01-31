@@ -46,9 +46,6 @@ def my_theme(brand_yml):
         }
     }
 
-def apply_theme(theme):
-    alt.themes.enable(theme)
-
 # Register the custom theme and enable it
 united_theme = partial(my_theme, 'united-brand.yml')
 slate_theme = partial(my_theme, 'slate-brand.yml')
@@ -61,9 +58,12 @@ alt.renderers.enable('html')
 from vega_datasets import data
 cars = data.cars()
 
+def apply_theme(theme, _plot):
+    alt.themes.enable(theme)
+
 LightDarkStateful(
-    partial(alt.themes.enable, 'united_theme'),
-    partial(alt.themes.enable, 'slate_theme'),
+    partial(apply_theme, 'united_theme'),
+    partial(apply_theme, 'slate_theme'),
     alt.Chart(cars).mark_point().encode(
         x='Horsepower',
         y='Miles_per_Gallon',
