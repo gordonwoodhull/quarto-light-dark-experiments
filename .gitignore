@@ -1,0 +1,7 @@
+.gitignore
+.quarto/
+*.html
+*.html.md
+*.pdf
+*_files/
+__pycache__/
