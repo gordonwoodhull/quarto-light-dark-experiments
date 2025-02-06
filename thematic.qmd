@@ -27,7 +27,7 @@ thematic_brand <- function(brand_yml) {
   )
 }
 start_cell <- function()
-  cat(paste0('::: {.cell}\n'))
+  cat(paste0('::: {.cell .quarto-light-dark-container}\n'))
 
 start_plot <- function(marker) {
   cat(paste0('::: {.cell-output-display .', marker, '}\n'))
