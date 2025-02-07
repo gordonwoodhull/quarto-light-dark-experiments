@@ -1,5 +1,5 @@
 ---
-title: "jupyter dark mode - plotnine"
+title: "jupyter dark mode - altair"
 author: "anthropic claude-3-5-sonnet-latest"
 date: "2025-01-22 14:25:54.403762"
 engine: jupyter
@@ -24,8 +24,7 @@ We'll create a violin plot to visualize the distribution of measurements across 
 
 ```{python}
 import yaml
-import inspect
-from light_dark import LightDark
+from IPython.display import display, Markdown
 from plotnine import *
 import pandas as pd
 from sklearn.datasets import load_iris
@@ -40,36 +39,25 @@ def load_brand_theme(brand_yml):
 theme_united = load_brand_theme('united-brand.yml')
 theme_slate = load_brand_theme('slate-brand.yml')
 
+marker_themes = [('quarto-light-marker', theme_united), ('quarto-dark-marker', theme_slate)]
+
 
 # Load the iris dataset
 iris = load_iris()
 iris_df = pd.DataFrame(iris.data, columns=iris.feature_names)
 iris_df['species'] = pd.Categorical(iris.target_names[iris.target])
 
-plot = (ggplot(iris_df, aes(x='species', y='sepal length (cm)', fill='species'))
+for marker, theme in marker_themes:
+  display(Markdown('[]{.' + marker + '}'))
+
+  # Create the violin plot
+  display((ggplot(iris_df, aes(x='species', y='sepal length (cm)', fill='species'))
     + geom_violin()
     + labs(title='Distribution of Sepal Length by Iris Species',
             x='Species',
             y='Sepal Length (cm)')
-    + theme_minimal())
-
-# returns None
-# print(plot.draw()._repr_html_())
-
-# print(inspect.getfullargspec(plot.draw()._repr_html_))
-# FullArgSpec(args=['self'], varargs=None, varkw=None, defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
-
-# works
-# display(plot + theme_slate)
-
-# print('plot has', '\n'.join(dir(plot.draw())))
-# plotnine-props.txt in repo
-
-# TypeError: sequence item 2: expected str instance, NoneType found
-# LightDark(
-#     plot + theme_united,
-#     plot + theme_slate
-# )
+    + theme_minimal() + theme
+    ).draw())
 ```
 
 This code:
