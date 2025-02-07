@@ -1,5 +1,5 @@
 ---
-title: "jupyter dark mode - altair"
+title: "jupyter dark mode - seaborn"
 engine: jupyter
 format:
   html:
@@ -69,9 +69,11 @@ g.set(title="Violin plot of Sepal Length by Species")
 plt.title("Hello")
 plt.show(block=False)
 
+# note, must set new theme before starting new figure
+# otherwise axis area will be wrong color
+sns.set_theme(rc = seaborn_params_from_brand("slate-brand.yml"))
 plt.figure()
 display(Markdown('[]{.quarto-dark-marker}'))
-sns.set_theme(rc = seaborn_params_from_brand("slate-brand.yml"))
 g = sns.violinplot(x="species", y="sepal_length", data=iris, inner="quartile")
 g.set(title="Violin plot of Sepal Length by Species")
 plt.title("Hello")
