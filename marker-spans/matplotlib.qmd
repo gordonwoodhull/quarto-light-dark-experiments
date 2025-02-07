@@ -9,7 +9,7 @@ format:
       dark: slate
 keep-md: true
 filters:
-  - light-dark-jupyter.lua
+  - light-dark-marker-spans.lua
 ---
 
 ```{python}

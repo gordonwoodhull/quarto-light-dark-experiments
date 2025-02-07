@@ -9,7 +9,7 @@ format:
       dark: slate
 keep-md: true
 filters:
-  - light-dark-jupyter.lua
+  - light-dark-marker-spans.lua
 author: "openai gpt-4o"
 date: 2024-12-25 18:31:06.502548
 ---
