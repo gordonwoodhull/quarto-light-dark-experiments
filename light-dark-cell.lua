@@ -22,7 +22,7 @@ function Div(div)
   return div:walk({
     traverse = 'topdown',
     Div = function(div)
-      if div.classes:find_if(quarto._quarto.modules.classpredicates.isCodeCellDisplay) then
+      if div.classes:includes("cell-output-display") then
         div.classes:insert("quarto-" .. firstClass .. "-marker")
         firstClass = "dark"
         return div

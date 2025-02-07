@@ -9,12 +9,14 @@ format:
       dark: slate
 keep-md: true
 filters:
-  - light-dark-fenced-divs.lua
+  - light-dark-cell.lua
+  - light-dark-jupyter.lua
 ---
 
 ```{python}
 #| echo: false
-#|
+#| classes: quarto-light-dark-container
+
 # import altair with an abbreviated alias
 import altair as alt
 
@@ -61,15 +63,17 @@ cars = data.cars()
 def apply_theme(theme, _plot):
     alt.themes.enable(theme)
 
-LightDarkStateful(
-    partial(apply_theme, 'united_theme'),
-    partial(apply_theme, 'slate_theme'),
-    alt.Chart(cars).mark_point().encode(
+chart = alt.Chart(cars).mark_point().encode(
         x='Horsepower',
         y='Miles_per_Gallon',
         color='Origin',
     ).properties(width=800, height=500).interactive()
-)
+
+alt.themes.enable('united_theme')
+chart.show()
+
+alt.themes.enable("slate_theme")
+chart.show()
 ```
 
 {{< lipsum 2 >}}
