@@ -1,0 +1,29 @@
+---
+title: dark mode - "maximal" approach
+---
+
+This is not implemented but it obviously could be.
+
+Problems with this approach:
+
+* Superficially resembles output format but is actually much more complicated (light and dark divs contain `.cell .cell-output-display`)
+* Where does nonplot content go?
+  * echo of code
+  * stdout
+  * stderr
+* These problems could be solved but it's messy
+
+````
+::: {.quarto-light-dark-container}
+::: {.quarto-light-marker}
+```{python}
+# light plot here
+```
+:::
+::: {.quarto-dark-marker}
+```{python}
+# dark plot here
+```
+:::
+:::
+````
