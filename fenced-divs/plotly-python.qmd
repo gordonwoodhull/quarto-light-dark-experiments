@@ -10,7 +10,7 @@ format:
       dark: slate
     keep-md: true
 filters:
-  - light-dark-jupyter.lua
+  - light-dark-fenced-divs.lua
 ---
 
 # Question
@@ -42,13 +42,11 @@ pio.templates['slate_brand'] = plotly_brand('slate-brand.yml')
 ```
 
 ```{python}
-#| echo: false
 import plotly.express as px
 import pandas as pd
 from sklearn.datasets import load_iris
 from light_dark import LightDarkStateful
 from functools import partial
-
 
 # Load the iris dataset
 iris_data = load_iris()
