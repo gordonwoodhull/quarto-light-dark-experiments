@@ -23,6 +23,7 @@ We'll create a violin plot to visualize the distribution of measurements across 
 ## Code and Explanation
 
 ```{python}
+#| echo: false
 import yaml
 from IPython.display import display, Markdown
 from plotnine import *
