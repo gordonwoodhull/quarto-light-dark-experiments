@@ -5,10 +5,18 @@ function Div(div)
   end
 
   -- expect 2 cells output display only
-  if quarto.utils.match("Div/[3]/.cell-output-display")(div) then
-    quarto.log.info("Requires 2 outputs only. No dark-light appplied")
-    return nil
-  end
+  local nOutputDisplay = 2
+  div:walk({
+    Div = function(div)
+      if div.classes:includes("cell-output-display") then
+        nOutputDisplay = nOutputDisplay - 1
+      end
+      if nOutputDisplay < 0 then 
+        quarto.log.info("Requires 2 outputs only. No dark-light appplied")
+        return nil
+      end
+    end
+  })
 
   local firstClass = "light"
   return div:walk({

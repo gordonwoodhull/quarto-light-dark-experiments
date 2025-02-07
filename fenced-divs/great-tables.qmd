@@ -9,7 +9,8 @@ format:
       dark: slate
 keep-md: true
 filters:
-  - light-dark-fenced-divs.lua
+  - light-dark-cell.lua
+  - light-dark-jupyter.lua
 ---
 
 ```{python}
@@ -30,8 +31,9 @@ slate_theme = theme_options('slate-brand.yml')
 
 
 ```{python}
-from light_dark import LightDark
+#| classes: quarto-light-dark-container
 from great_tables import GT, exibble
+from IPython.display import display
 
 gt_ex = (
   GT(exibble.head(5), rowname_col="row", groupname_col="group")
@@ -40,10 +42,9 @@ gt_ex = (
     .tab_source_note("THE SOURCE NOTE")
 )
 
-LightDark(
-  gt_ex.tab_options(**united_theme),
-  gt_ex.tab_options(**slate_theme)
-)
+display(gt_ex.tab_options(**united_theme))
+
+display(gt_ex.tab_options(**slate_theme))
 ```
 
 {{< lipsum 2 >}}
