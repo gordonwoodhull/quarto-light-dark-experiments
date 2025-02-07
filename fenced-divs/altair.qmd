@@ -23,8 +23,8 @@ import yaml
 import tempfile
 import os
 import matplotlib.pyplot as plt
-from IPython.display import display, Markdown
-import functools
+from light_dark import LightDarkStateful
+from functools import partial
 
 def my_theme(brand_yml):
     brand = yaml.safe_load(open(brand_yml).read())
@@ -46,31 +46,30 @@ def my_theme(brand_yml):
         }
     }
 
-united_theme = functools.partial(my_theme, 'united-brand.yml')
-slate_theme = functools.partial(my_theme, 'slate-brand.yml')
-
-marker_themes = [('quarto-light-marker', 'united_theme'), ('quarto-dark-marker', 'slate_theme')]
-
 # Register the custom theme and enable it
-alt.renderers.enable('svg')
+united_theme = partial(my_theme, 'united-brand.yml')
+slate_theme = partial(my_theme, 'slate-brand.yml')
 alt.themes.register('united_theme', united_theme)
 alt.themes.register('slate_theme', slate_theme)
 
+alt.renderers.enable('html')
 
 # load a sample dataset as a pandas DataFrame
 from vega_datasets import data
 cars = data.cars()
 
-for marker, theme in marker_themes:
-    display(Markdown('[]{.' + marker + '}'))
+def apply_theme(theme, _plot):
     alt.themes.enable(theme)
 
-    # make the chart
-    display(alt.Chart(cars).mark_point().encode(
+LightDarkStateful(
+    partial(apply_theme, 'united_theme'),
+    partial(apply_theme, 'slate_theme'),
+    alt.Chart(cars).mark_point().encode(
         x='Horsepower',
         y='Miles_per_Gallon',
         color='Origin',
-    ).interactive())
+    ).properties(width=800, height=500).interactive()
+)
 ```
 
 {{< lipsum 2 >}}

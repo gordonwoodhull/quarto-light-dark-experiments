@@ -26,14 +26,11 @@ def theme_options(brand_yml):
 
 united_theme = theme_options('united-brand.yml')
 slate_theme = theme_options('slate-brand.yml')
-
-marker_themes = [('quarto-light-marker', united_theme), ('quarto-dark-marker', slate_theme)]
-
 ```
 
 
 ```{python}
-from IPython.display import display, Markdown
+from light_dark import LightDark
 from great_tables import GT, exibble
 
 gt_ex = (
@@ -43,9 +40,10 @@ gt_ex = (
     .tab_source_note("THE SOURCE NOTE")
 )
 
-for marker, theme in marker_themes:
-  display(Markdown('[]{.' + marker + '}'))
-  display(gt_ex.tab_options(**theme))
+LightDark(
+  gt_ex.tab_options(**united_theme),
+  gt_ex.tab_options(**slate_theme)
+)
 ```
 
 {{< lipsum 2 >}}

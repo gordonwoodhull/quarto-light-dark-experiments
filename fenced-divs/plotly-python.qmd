@@ -24,9 +24,11 @@ Plotly is an interactive plotting library that is ideal for creating detailed in
 # Code
 
 ```{python}
+#| echo: false
 import yaml
 import plotly.graph_objects as go
 import plotly.io as pio
+from functools import partial
 
 def plotly_brand(brand_yml):
   brand = yaml.safe_load(open(brand_yml).read())
@@ -37,15 +39,15 @@ def plotly_brand(brand_yml):
   }})
 pio.templates['united_brand'] = plotly_brand('united-brand.yml')
 pio.templates['slate_brand'] = plotly_brand('slate-brand.yml')
-
-marker_themes = [('quarto-light-marker', 'united_brand'), ('quarto-dark-marker', 'slate_brand')]
 ```
 
 ```{python}
+#| echo: false
 import plotly.express as px
 import pandas as pd
 from sklearn.datasets import load_iris
-from IPython.display import display, Markdown
+from light_dark import LightDarkStateful
+from functools import partial
 
 
 # Load the iris dataset
@@ -53,13 +55,15 @@ iris_data = load_iris()
 iris_df = pd.DataFrame(data=iris_data.data, columns=iris_data.feature_names)
 iris_df['species'] = pd.Categorical.from_codes(iris_data.target, iris_data.target_names)
 
+def apply_theme(theme, plot):
+  plot.update_layout(template=theme)
+
 # Plotting
-for marker, theme in marker_themes:
-  display(Markdown('[]{.' + marker + '}'))
-  pio.templates.default = theme
-  fig = px.violin(iris_df, x='species', y='sepal length (cm)', box=True, points="all",
-                title='Violin Plot of Sepal Length in Iris Dataset')
-  fig.show()
+LightDarkStateful(
+  partial(apply_theme, 'united_brand'),
+  partial(apply_theme, 'slate_brand'),
+  px.violin(iris_df, x='species', y='sepal length (cm)', box=True, points="all",
+                title='Violin Plot of Sepal Length in Iris Dataset'))
 ```
 
 This code uses `plotly.express` to create a violin plot of the sepal length by species from the Iris dataset. The `sepal length (cm)` is plotted on the Y-axis, with each species on the X-axis. The violin plot provides insights into the distribution of sepal length measurements within each species, along with a box plot overlay and individual measurements as jittered points for detailed data analysis.
