@@ -1,0 +1,59 @@
+---
+title: "jupyter dark mode - matplotlib"
+engine: jupyter
+format:
+  html:
+    css: light-dark.css
+    theme:
+      light: united
+      dark: slate
+keep-md: true
+filters:
+  - light-dark-cell.lua
+  - light-dark-jupyter.lua
+---
+
+```{python}
+#| echo: false
+#| classes: quarto-light-dark-container
+import yaml
+import tempfile
+import os
+import matplotlib.pyplot as plt
+
+def mplstyle_from_brand(brand_file):
+    brand = yaml.safe_load(brand_file.read())
+    fd, name = tempfile.mkstemp("mplstyle")
+    os.close(fd)
+    with open(name, "w") as out:
+        out.write("axes.facecolor: \"%s\"\n" % brand["color"]["background"])
+        out.write("axes.edgecolor: \"%s\"\n" % brand["color"]["foreground"])
+        out.write("axes.labelcolor: \"%s\"\n" % brand["color"]["foreground"])
+        out.write("axes.titlecolor: \"%s\"\n" % brand["color"]["foreground"])
+        out.write("figure.facecolor: \"%s\"\n" % brand["color"]["background"])
+        out.write("figure.edgecolor: \"%s\"\n" % brand["color"]["foreground"])
+        out.write("text.color: \"%s\"\n" % brand["color"]["foreground"])
+        out.write("xtick.color: \"%s\"\n" % brand["color"]["foreground"])
+        out.write("ytick.color: \"%s\"\n" % brand["color"]["foreground"])
+        out.write("axes.prop_cycle: cycler('color', ['%s'])" % brand["color"]["primary"])
+    plt.style.use(name)
+    os.unlink(name)
+
+with open("united-brand.yml") as brand_file:
+    mplstyle_from_brand(brand_file)
+plt.title("Hello")
+plt.plot([1,2,3])
+plt.show(block=False)
+
+with open("slate-brand.yml") as brand_file:
+    mplstyle_from_brand(brand_file)
+plt.figure()
+plt.title("Hello")
+plt.plot([1,2,3])
+plt.show(block=False)
+```
+
+Here's a [link](https://example.com).
+
+
+{{< lipsum 3 >}}

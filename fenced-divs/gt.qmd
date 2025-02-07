@@ -11,7 +11,8 @@ execute:
   echo: false
   warning: false
 filters:
-  - light-dark-fenced-divs.lua
+  - light-dark-cell.lua
+  - light-dark-jupyter.lua
 ---
 
 ```{r}
@@ -43,7 +44,7 @@ end_cell  <- end_plot <- function()
 ```
 
 ```{r}
-#| output: asis
+#| classes: quarto-light-dark-container
 library(tidyverse)
 penguins <- palmerpenguins::penguins |> filter(!is.na(sex))
 penguin_counts <- penguins |>
@@ -109,15 +110,9 @@ penguins_table <- penguin_counts_wider |>
   ) |>
   opt_stylize(style = 6, color = 'gray')
 
-start_cell()
-start_plot('quarto-light-marker')
 penguins_table |> united_theme()
-end_plot()
-start_plot('quarto-dark-marker')
-penguins_table |> slate_theme()
-end_plot()
-end_cell()
 
+penguins_table |> slate_theme()
 ```
 
 Here's a [link](https://example.com).
