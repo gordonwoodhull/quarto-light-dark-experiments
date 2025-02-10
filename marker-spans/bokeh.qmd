@@ -4,7 +4,7 @@ author: "anthropic claude-3-5-sonnet-20240620"
 date: 2024-12-28 15:07:56.427818
 format:
   html:
-    css: light-dark.css
+    css: ../light-dark.css
     theme:
       light: united
       dark: slate
@@ -112,18 +112,18 @@ def set_brand_theme(brand_yml):
   return set_theme
 
 display(Markdown('[]{.quarto-light-marker}'))
-set_brand_theme('united-brand.yml')(p)
+set_brand_theme('../united-brand.yml')(p)
 show(p)
 
 display(Markdown('[]{.quarto-light-marker}'))
-set_brand_theme('slate-brand.yml')(p)
+set_brand_theme('../slate-brand.yml')(p)
 show(p)
 # print(p._repr_html_())
 
 # print([x for x in dir(p) if re.match('.*repr.*', x)])
 # LightDarkStateful(
-#   set_brand_theme('united-brand.yml'),
-#   set_brand_theme('slate-brand.yml'),
+#   set_brand_theme('../united-brand.yml'),
+#   set_brand_theme('../slate-brand.yml'),
 #   p
 # )
 ```

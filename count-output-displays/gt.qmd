@@ -2,7 +2,7 @@
 title: "knitr dark mode - gt"
 format:
   html:
-    css: light-dark.css
+    css: ../light-dark.css
     theme:
       light: united
       dark: slate
@@ -30,8 +30,8 @@ gt_brand <- function(brand_yml) {
     )
   )
 }
-united_theme <- gt_brand('united-brand.yml')
-slate_theme <- gt_brand('slate-brand.yml')
+united_theme <- gt_brand('../united-brand.yml')
+slate_theme <- gt_brand('../slate-brand.yml')
 ```
 
 ```{r}

@@ -5,7 +5,7 @@ date: "2025-01-22 14:25:54.403762"
 engine: jupyter
 format:
   html:
-    css: light-dark.css
+    css: ../light-dark.css
     theme:
       light: united
       dark: slate
@@ -38,8 +38,8 @@ def load_brand_theme(brand_yml):
     text=element_text(color=brand["color"]["foreground"])
   )
 
-theme_united = load_brand_theme('united-brand.yml')
-theme_slate = load_brand_theme('slate-brand.yml')
+theme_united = load_brand_theme('../united-brand.yml')
+theme_slate = load_brand_theme('../slate-brand.yml')
 
 
 # Load the iris dataset

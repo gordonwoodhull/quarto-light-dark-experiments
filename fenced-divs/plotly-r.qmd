@@ -2,7 +2,7 @@
 title: "knitr dark mode - plotly in R"
 format:
   html:
-    css: light-dark.css
+    css: ../light-dark.css
     theme:
       light: united
       dark: slate
@@ -27,8 +27,8 @@ plotly_brand <- function(brand_yml) {
       font = list(color = brand$color$foreground)
   ))
 }
-united_theme <- plotly_brand('united-brand.yml')
-slate_theme <- plotly_brand('slate-brand.yml')
+united_theme <- plotly_brand('../united-brand.yml')
+slate_theme <- plotly_brand('../slate-brand.yml')
 
 start_cell <- function()
   cat(paste0('::: {.cell .quarto-light-dark-container}\n'))

@@ -2,7 +2,7 @@
 title: "knitr dark mode - ggplot"
 format:
   html:
-    css: light-dark.css
+    css: ../light-dark.css
     theme:
       light: united
       dark: slate

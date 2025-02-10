@@ -3,7 +3,7 @@ title: "jupyter dark mode - great tables"
 engine: jupyter
 format:
   html:
-    css: light-dark.css
+    css: ../light-dark.css
     theme:
       light: united
       dark: slate
@@ -24,8 +24,8 @@ def theme_options(brand_yml):
     'table_font_color': fg
   }
 
-united_theme = theme_options('united-brand.yml')
-slate_theme = theme_options('slate-brand.yml')
+united_theme = theme_options('../united-brand.yml')
+slate_theme = theme_options('../slate-brand.yml')
 ```
 
 

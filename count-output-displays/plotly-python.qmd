@@ -4,7 +4,7 @@ author: "openai gpt-4o"
 date: "2024-10-23 16:52:22.554560"
 format:
   html:
-    css: light-dark.css
+    css: ../light-dark.css
     theme:
       light: united
       dark: slate
@@ -37,8 +37,8 @@ def plotly_brand(brand_yml):
     'plot_bgcolor': brand["color"]["background"],
     'font_color': brand["color"]["foreground"],
   }})
-pio.templates['united_brand'] = plotly_brand('united-brand.yml')
-pio.templates['slate_brand'] = plotly_brand('slate-brand.yml')
+pio.templates['united_brand'] = plotly_brand('../united-brand.yml')
+pio.templates['slate_brand'] = plotly_brand('../slate-brand.yml')
 ```
 
 ```{python}

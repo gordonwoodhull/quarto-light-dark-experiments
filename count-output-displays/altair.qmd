@@ -3,7 +3,7 @@ title: "jupyter dark mode - altair"
 engine: jupyter
 format:
   html:
-    css: light-dark.css
+    css: ../light-dark.css
     theme:
       light: united
       dark: slate
@@ -59,13 +59,13 @@ def my_theme(brand_yml) -> alt.theme.ThemeConfig:
 # Register the custom theme and enable it
 @alt.theme.register("united_theme", enable = True)
 def united_theme() -> alt.theme.ThemeConfig:
-    return partial(my_theme, 'united-brand.yml')()
+    return partial(my_theme, '../united-brand.yml')()
 
 chart.show()
 
 @alt.theme.register("slate_theme", enable = True)
 def slate_theme() -> alt.theme.ThemeConfig:
-    return partial(my_theme, 'slate-brand.yml')()
+    return partial(my_theme, '../slate-brand.yml')()
 
 chart.show()
 

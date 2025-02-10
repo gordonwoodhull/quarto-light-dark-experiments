@@ -2,7 +2,7 @@
 title: "knitr dark mode - thematic"
 format:
   html:
-    css: light-dark.css
+    css: ../light-dark.css
     theme:
       light: united
       dark: slate
@@ -33,10 +33,10 @@ thematic_brand <- function(brand_yml) {
 
 ```{r}
 #| classes: quarto-light-dark-container
-thematic_brand('united-brand.yml')
+thematic_brand('../united-brand.yml')
 ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
 
-thematic_brand('slate-brand.yml')
+thematic_brand('../slate-brand.yml')
 ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
 ```
 
@@ -44,13 +44,13 @@ ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_
 
 ```{r}
 #| classes: quarto-light-dark-container
-thematic_brand('united-brand.yml')
+thematic_brand('../united-brand.yml')
 plot(
     palmerpenguins::penguins$bill_length_mm,
     palmerpenguins::penguins$bill_depth_mm,
 )
 
-thematic_brand('slate-brand.yml')
+thematic_brand('../slate-brand.yml')
 plot(
     palmerpenguins::penguins$bill_length_mm,
     palmerpenguins::penguins$bill_depth_mm,

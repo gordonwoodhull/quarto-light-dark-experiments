@@ -4,7 +4,7 @@ author: "anthropic claude-3-5-sonnet-20240620"
 date: 2024-12-28 15:07:56.427818
 format:
   html:
-    css: light-dark.css
+    css: ../light-dark.css
     theme:
       light: united
       dark: slate
@@ -113,10 +113,10 @@ def set_brand_theme(brand_yml):
     }})
   return set_theme
 
-set_brand_theme('united-brand.yml')(p)
+set_brand_theme('../united-brand.yml')(p)
 show(p)
 
-set_brand_theme('slate-brand.yml')(p)
+set_brand_theme('../slate-brand.yml')(p)
 show(p)
 ```
 

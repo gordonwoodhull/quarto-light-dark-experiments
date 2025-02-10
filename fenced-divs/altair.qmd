@@ -3,7 +3,7 @@ title: "jupyter dark mode - altair"
 engine: jupyter
 format:
   html:
-    css: light-dark.css
+    css: ../light-dark.css
     theme:
       light: united
       dark: slate
@@ -47,8 +47,8 @@ def my_theme(brand_yml):
     }
 
 # Register the custom theme and enable it
-united_theme = partial(my_theme, 'united-brand.yml')
-slate_theme = partial(my_theme, 'slate-brand.yml')
+united_theme = partial(my_theme, '../united-brand.yml')
+slate_theme = partial(my_theme, '../slate-brand.yml')
 alt.themes.register('united_theme', united_theme)
 alt.themes.register('slate_theme', slate_theme)
 

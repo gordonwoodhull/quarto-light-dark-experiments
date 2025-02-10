@@ -3,7 +3,7 @@ title: "jupyter dark mode - seaborn"
 engine: jupyter
 format:
   html:
-    css: light-dark.css
+    css: ../light-dark.css
     theme:
       light: united
       dark: slate
@@ -60,7 +60,7 @@ import matplotlib.pyplot as plt
 iris = sns.load_dataset("iris")
 
 # Set up the matplotlib figure
-sns.set_theme(rc = seaborn_params_from_brand("united-brand.yml"))
+sns.set_theme(rc = seaborn_params_from_brand("../united-brand.yml"))
 g = sns.violinplot(x="species", y="sepal_length", data=iris, inner="quartile")
 g.set(title="Violin plot of Sepal Length by Species")
 plt.title("Hello")
@@ -68,7 +68,7 @@ plt.show(block=False)
 
 # note, must set new theme before starting new figure
 # otherwise axis area will be wrong color
-sns.set_theme(rc = seaborn_params_from_brand("slate-brand.yml"))
+sns.set_theme(rc = seaborn_params_from_brand("../slate-brand.yml"))
 plt.figure()
 g = sns.violinplot(x="species", y="sepal_length", data=iris, inner="quartile")
 g.set(title="Violin plot of Sepal Length by Species")

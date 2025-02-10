@@ -3,7 +3,7 @@ title: "jupyter dark mode - matplotlib"
 engine: jupyter
 format:
   html:
-    css: light-dark.css
+    css: ../light-dark.css
     theme:
       light: united
       dark: slate
@@ -39,13 +39,13 @@ def mplstyle_from_brand(brand_file):
     os.unlink(name)
 
 display(Markdown('[]{.quarto-light-marker}'))
-with open("united-brand.yml") as brand_file:
+with open("../united-brand.yml") as brand_file:
     mplstyle_from_brand(brand_file)
 plt.title("Hello")
 plt.plot([1,2,3])
 plt.show(block=False)
 
-with open("slate-brand.yml") as brand_file:
+with open("../slate-brand.yml") as brand_file:
     mplstyle_from_brand(brand_file)
 plt.figure()
 display(Markdown('[]{.quarto-dark-marker}'))
