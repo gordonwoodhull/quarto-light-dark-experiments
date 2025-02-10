@@ -12,7 +12,7 @@ format:
 keep-md: true
 filters:
   - light-dark-cell.lua
-  - light-dark-jupyter.lua
+  - light-dark-fenced-divs.lua
 ---
 
 ## Question
