@@ -22,13 +22,21 @@ import altair as alt
 
 # Define a custom theme function
 import yaml
-import tempfile
-import os
-import matplotlib.pyplot as plt
-from light_dark import LightDarkStateful
 from functools import partial
 
-def my_theme(brand_yml):
+# load a sample dataset as a pandas DataFrame
+from vega_datasets import data
+cars = data.cars()
+
+alt.renderers.enable('html')
+
+chart = alt.Chart(cars).mark_point().encode(
+        x='Horsepower',
+        y='Miles_per_Gallon',
+        color='Origin',
+    ).properties(width=800, height=500).interactive()
+
+def my_theme(brand_yml) -> alt.theme.ThemeConfig:
     brand = yaml.safe_load(open(brand_yml).read())
     fg = brand["color"]["foreground"]
     bg = brand["color"]["background"]
@@ -49,31 +57,18 @@ def my_theme(brand_yml):
     }
 
 # Register the custom theme and enable it
-united_theme = partial(my_theme, 'united-brand.yml')
-slate_theme = partial(my_theme, 'slate-brand.yml')
-alt.themes.register('united_theme', united_theme)
-alt.themes.register('slate_theme', slate_theme)
+@alt.theme.register("united_theme", enable = True)
+def united_theme() -> alt.theme.ThemeConfig:
+    return partial(my_theme, 'united-brand.yml')()
 
-alt.renderers.enable('html')
-
-# load a sample dataset as a pandas DataFrame
-from vega_datasets import data
-cars = data.cars()
-
-def apply_theme(theme, _plot):
-    alt.themes.enable(theme)
-
-chart = alt.Chart(cars).mark_point().encode(
-        x='Horsepower',
-        y='Miles_per_Gallon',
-        color='Origin',
-    ).properties(width=800, height=500).interactive()
-
-alt.themes.enable('united_theme')
 chart.show()
 
-alt.themes.enable("slate_theme")
+@alt.theme.register("slate_theme", enable = True)
+def slate_theme() -> alt.theme.ThemeConfig:
+    return partial(my_theme, 'slate-brand.yml')()
+
 chart.show()
+
 ```
 
 {{< lipsum 2 >}}
