@@ -51,7 +51,9 @@ plot = (ggplot(iris_df, aes(x='species', y='sepal length (cm)', fill='species'))
     + geom_violin()
     + labs(title='Distribution of Sepal Length by Iris Species',
             x='Species',
-            y='Sepal Length (cm)'))
+            y='Sepal Length (cm)')
+    + theme_minimal()
+)
 
 
 display(plot + theme_united)
