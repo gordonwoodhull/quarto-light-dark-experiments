@@ -1,0 +1,81 @@
+---
+title: "knitr dark mode - thematic"
+format:
+  html:
+    css: light-dark.css
+    theme:
+      light: united
+      dark: slate
+    keep-md: true
+execute:
+  echo: false
+  warning: false
+filters:
+  - light-dark-fenced-divs.lua
+---
+
+```{r}
+#| echo: false
+#| warning: false
+library(ggplot2)
+
+thematic_brand <- function(brand_yml) {
+  brand <- yaml::yaml.load_file(brand_yml)
+  thematic::thematic_rmd(
+      bg=brand$color$background,
+      fg=brand$color$foreground,
+  )
+}
+start_cell <- function()
+  cat(paste0('::: {.cell .quarto-light-dark-container}\n'))
+
+start_plot <- function(marker) {
+  cat(paste0('::: {.cell-output-display .', marker, '}\n'))
+}
+end_cell <- end_plot <- function()
+  cat('\n:::\n')
+```
+
+## ggplot
+
+```{r}
+#| output: asis
+start_cell()
+thematic_brand('united-brand.yml')
+start_plot('quarto-light-marker')
+ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
+end_plot()
+
+thematic_brand('slate-brand.yml')
+start_plot('quarto-dark-marker')
+ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
+end_plot()
+end_cell()
+```
+
+## base R graphics
+
+```{r}
+#| results: asis
+start_cell()
+thematic_brand('united-brand.yml')
+start_plot('quarto-light-marker')
+plot(
+    palmerpenguins::penguins$bill_length_mm,
+    palmerpenguins::penguins$bill_depth_mm,
+)
+end_plot()
+
+thematic_brand('slate-brand.yml')
+start_plot('quarto-dark-marker')
+plot(
+    palmerpenguins::penguins$bill_length_mm,
+    palmerpenguins::penguins$bill_depth_mm,
+)
+end_plot()
+end_cell()
+```
+
+Here's a [link](https://example.com).
+
+{{< lipsum 3 >}}
