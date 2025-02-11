@@ -9,8 +9,7 @@ format:
       dark: slate
 keep-md: true
 filters:
-  - light-dark-cell.lua
-  - light-dark-fenced-divs.lua
+  - light-dark-cod-sequence.lua
 author: "openai gpt-4o"
 date: 2024-12-25 18:31:06.502548
 ---
