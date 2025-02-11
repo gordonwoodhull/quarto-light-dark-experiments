@@ -1,15 +1,11 @@
 function Div(div)
   if not quarto.utils.match(".quarto-light-dark-container")(div) then return nil end
   local lightDiv, darkDiv, changed
-  for i, cod in ipairs(div.content) do
+  for _, cod in ipairs(div.content) do
     if quarto.utils.match(".quarto-light-marker")(cod) then
       lightDiv = cod
-    elseif quarto.utils.match("[1]/Para/[1]/Span/.quarto-light-marker")(cod) then
-      lightDiv = div.content[i+1]
     elseif quarto.utils.match(".quarto-dark-marker")(cod) then
       darkDiv = cod
-    elseif quarto.utils.match("[1]/Para/[1]/Span/.quarto-dark-marker")(cod) then
-      darkDiv = div.content[i+1]
     end
     if lightDiv and darkDiv then
       local lightContent = lightDiv.content[1]
