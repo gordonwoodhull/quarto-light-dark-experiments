@@ -12,28 +12,13 @@ filters:
   - light-dark-cod-sequence.lua
 ---
 
+
 ```{python}
 #| echo: false
-#| classes: quarto-light-dark-container
-
-# import altair with an abbreviated alias
-import altair as alt
-
 # Define a custom theme function
 import yaml
 from functools import partial
-
-# load a sample dataset as a pandas DataFrame
-from vega_datasets import data
-cars = data.cars()
-
-alt.renderers.enable('html')
-
-chart = alt.Chart(cars).mark_point().encode(
-        x='Horsepower',
-        y='Miles_per_Gallon',
-        color='Origin',
-    ).properties(width=800, height=500).interactive()
+import altair as alt
 
 def my_theme(brand_yml) -> alt.theme.ThemeConfig:
     brand = yaml.safe_load(open(brand_yml).read())
@@ -54,6 +39,24 @@ def my_theme(brand_yml) -> alt.theme.ThemeConfig:
             'background': bg,  # Background color
         }
     }
+```
+
+
+```{python}
+#| echo: false
+#| classes: quarto-light-dark-container
+
+# load a sample dataset as a pandas DataFrame
+from vega_datasets import data
+cars = data.cars()
+
+alt.renderers.enable('html')
+
+chart = alt.Chart(cars).mark_point().encode(
+        x='Horsepower',
+        y='Miles_per_Gallon',
+        color='Origin',
+    ).properties(width=800, height=500).interactive()
 
 # Register the custom theme and enable it
 @alt.theme.register("united_theme", enable = True)

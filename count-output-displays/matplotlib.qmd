@@ -14,11 +14,9 @@ filters:
 
 ```{python}
 #| echo: false
-#| classes: quarto-light-dark-container
 import yaml
 import tempfile
 import os
-import matplotlib.pyplot as plt
 
 def mplstyle_from_brand(brand_file):
     brand = yaml.safe_load(brand_file.read())
@@ -37,6 +35,12 @@ def mplstyle_from_brand(brand_file):
         out.write("axes.prop_cycle: cycler('color', ['%s'])" % brand["color"]["primary"])
     plt.style.use(name)
     os.unlink(name)
+```
+
+```{python}
+#| echo: false
+#| classes: quarto-light-dark-container
+import matplotlib.pyplot as plt
 
 with open("../united-brand.yml") as brand_file:
     mplstyle_from_brand(brand_file)

@@ -29,6 +29,32 @@ Sadly plotly's `figure.background_fill_color` does not seem to work.
 
 ```{python}
 #| echo: false
+import yaml
+from bokeh.io import curdoc
+from bokeh.themes import Theme
+
+def set_brand_theme(brand_yml):
+  brand = yaml.safe_load(open(brand_yml).read())
+  fg = brand["color"]["foreground"]
+  bg = brand["color"]["background"]
+  curdoc().theme = Theme(json={'attrs': {
+    'figure': {
+      'background_fill_color': bg, # just plot area
+    },
+    'Title': {
+      'background_fill_color': bg,
+      'text_color': fg,
+    },
+    'Axis': {
+      'background_fill_color': bg,
+      'axis_label_text_color': fg,
+      'major_label_text_color': fg,
+    },
+  }})
+```
+
+```{python}
+#| echo: false
 #| classes: quarto-light-dark-container
 import pandas as pd
 import numpy as np
@@ -39,10 +65,7 @@ from bokeh.palettes import Spectral3
 from bokeh.layouts import column
 from bokeh.io import output_notebook
 
-import yaml
 import re
-from bokeh.io import curdoc
-from bokeh.themes import Theme
 from IPython.display import display, Markdown
 
 
@@ -86,31 +109,10 @@ p.yaxis.axis_label = "Sepal Length (cm)"
 # Show the plot
 output_notebook()
 
-def set_brand_theme(brand_yml):
-  brand = yaml.safe_load(open(brand_yml).read())
-  fg = brand["color"]["foreground"]
-  bg = brand["color"]["background"]
-  def set_theme(_plot):
-    curdoc().theme = Theme(json={'attrs': {
-      'figure': {
-        'background_fill_color': bg, # just plot area
-      },
-      'Title': {
-        'background_fill_color': bg,
-        'text_color': fg,
-      },
-      'Axis': {
-        'background_fill_color': bg,
-        'axis_label_text_color': fg,
-        'major_label_text_color': fg,
-      },
-    }})
-  return set_theme
-
-set_brand_theme('../united-brand.yml')(p)
+set_brand_theme('../united-brand.yml')
 show(p)
 
-set_brand_theme('../slate-brand.yml')(p)
+set_brand_theme('../slate-brand.yml')
 show(p)
 ```
 

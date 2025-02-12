@@ -23,13 +23,8 @@ We'll create a violin plot to visualize the distribution of measurements across 
 ## Code and Explanation
 
 ```{python}
-#| classes: quarto-light-dark-container
 import yaml
-import inspect
 from plotnine import *
-import pandas as pd
-from sklearn.datasets import load_iris
-
 def load_brand_theme(brand_yml):
   brand = yaml.safe_load(open(brand_yml).read())
   return theme(
@@ -39,6 +34,13 @@ def load_brand_theme(brand_yml):
 
 theme_united = load_brand_theme('../united-brand.yml')
 theme_slate = load_brand_theme('../slate-brand.yml')
+```
+
+```{python}
+#| classes: quarto-light-dark-container
+import pandas as pd
+from sklearn.datasets import load_iris
+
 
 
 # Load the iris dataset
