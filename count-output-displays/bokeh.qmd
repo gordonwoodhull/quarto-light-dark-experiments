@@ -21,10 +21,9 @@ Please draw a violin plot of the iris data using Bokeh.
 
 In this document, we'll create a violin plot of the Iris dataset using the Bokeh library in Python. A violin plot is an excellent way to visualize the distribution of numerical data across different categories. For the Iris dataset, we'll plot the distribution of sepal length for each species of iris.
 
-This example is not working because
-* Bokeh has multiple HTML outputs (`.cell-output-display`) per plot.
-* Properties for custom themes don't seem to be fully documented.
-* Claude's implementation of a violin plot is comically wrong, if recognizable.
+An amusing buggy plot by Claude.
+
+Sadly plotly's `figure.background_fill_color` does not seem to work.
 
 ## Code
 
@@ -93,9 +92,8 @@ def set_brand_theme(brand_yml):
   bg = brand["color"]["background"]
   def set_theme(_plot):
     curdoc().theme = Theme(json={'attrs': {
-      'Figure': {
-        'background_fill_color': bg,
-        'text_color': fg,
+      'figure': {
+        'background_fill_color': bg, # just plot area
       },
       'Title': {
         'background_fill_color': bg,
@@ -105,9 +103,6 @@ def set_brand_theme(brand_yml):
         'background_fill_color': bg,
         'axis_label_text_color': fg,
         'major_label_text_color': fg,
-      },
-      'Plot': {
-        'background_fill_color': bg,
       },
     }})
   return set_theme
