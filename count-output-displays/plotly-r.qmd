@@ -1,5 +1,5 @@
 ---
-title: "knitr dark mode - plotly in R"
+title: "knitr dark mode - plotly for R"
 format:
   html:
     css: ../light-dark.css
