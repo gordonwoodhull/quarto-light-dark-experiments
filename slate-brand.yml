@@ -1,6 +1,6 @@
 color:
   background: "#282B30"
-  foreground: "#aaa"
+  foreground: "#aaaaaa"
   primary: white
 typography:
   fonts:

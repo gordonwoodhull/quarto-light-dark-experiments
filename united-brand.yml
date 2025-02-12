@@ -1,6 +1,6 @@
 color:
-  background: "#fff"
-  foreground: "#333"
+  background: "#ffffff"
+  foreground: "#333333"
   primary: red
 typography:
   fonts:
