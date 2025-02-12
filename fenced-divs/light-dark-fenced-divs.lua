@@ -14,6 +14,8 @@ function Div(div)
         local lightType = pandoc.utils.type(lightContent)
         local darkType = pandoc.utils.type(darkContent)
 
+        quarto.log.output('fd doin light/dark', lightType, darkType)
+        quarto.log.output(lightContent)
         if lightType ~= darkType then
           quarto.log.warning('light/dark content different types', lightType, darkType)
         elseif lightType == "Para" then
