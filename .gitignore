@@ -11,3 +11,4 @@ __pycache__/
 /.luarc.json
 
 /.quarto/
+_output/
