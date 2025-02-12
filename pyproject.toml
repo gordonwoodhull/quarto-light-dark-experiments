@@ -10,7 +10,7 @@ dependencies = [
     "great-tables>=0.16.1",
     "jupyter>=1.1.1",
     "matplotlib>=3.10.0",
-    "plotly>=6.0.0",
+    "plotly<6",
     "plotnine>=0.14.5",
     "scikit-learn>=1.6.1",
     "seaborn>=0.13.2",
