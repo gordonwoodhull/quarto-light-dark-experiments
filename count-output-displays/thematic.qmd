@@ -56,6 +56,33 @@ plot(
 )
 ```
 
+
+
+```{r}
+#| classes: quarto-light-dark-container
+library(ggplot2)
+library(patchwork)
+
+#generate three scatterplots
+plot1 <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point()
+
+plot2 <- ggplot(mtcars, aes(mpg, disp)) +
+  geom_point()
+
+plot3 <- ggplot(mtcars, aes(mpg, hp)) +
+  geom_point()
+
+#display all three scatterplots in same graphic
+thematic_brand('../united-brand.yml')
+plot1 + plot2 + plot3
+
+thematic_brand('../slate-brand.yml')
+plot1 + plot2 + plot3
+
+```
+
+
 Here's a [link](https://example.com).
 
 {{< lipsum 3 >}}
