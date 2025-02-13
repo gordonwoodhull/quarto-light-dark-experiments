@@ -39,6 +39,8 @@ def mplstyle_from_brand(brand_file):
 
 ```{python}
 #| echo: false
+#| label: fig-matplotlib
+#| fig-cap: matplotlib line plot
 #| classes: quarto-light-dark-container
 import matplotlib.pyplot as plt
 
