@@ -42,12 +42,12 @@ To activate it, click the toggle below.
 function hexToRgb(hex) {
     // Remove '#' if present
     hex = hex.replace(/^#/, '');
-    
+
     // Parse the hex values to integers and normalize to 0-1
     const r = parseInt(hex.slice(0, 2), 16) / 255;
     const g = parseInt(hex.slice(2, 4), 16) / 255;
     const b = parseInt(hex.slice(4, 6), 16) / 255;
-    
+
     return [r, g, b];
 }
 
@@ -66,7 +66,7 @@ bgVec = hexToRgb(bg)
     const svgFilter = document.querySelector("#filter-autobrand");
     svgFilter.innerHTML = filterEntry(
       autoBrand(
-        [[0,0,0], [1,1,1]], 
+        [[0,0,0], [1,1,1]],
         [fgVec, bgVec]
       )
     );
@@ -95,7 +95,7 @@ ggplot(penguins, aes(x=bill_depth_mm, y=bill_length_mm, colour=species)) + geom_
 library(leaflet)
 orstationc <- read.csv("orstationc.csv", as.is=T)
 pal <- colorQuantile("YlOrRd", NULL, n = 8)
-leaflet(orstationc) %>% 
+leaflet(orstationc) %>%
   addTiles() %>%
   addCircleMarkers(color = ~pal(tann))
 ```
@@ -104,12 +104,72 @@ leaflet(orstationc) %>%
 
 ```{r}
 library(gt)
-exibble |>
-  gt() |>
-  data_color(
-    method = "numeric",
-    palette = c("red", "green")
-  )
+library(tidyverse)
+penguins <- palmerpenguins::penguins |> filter(!is.na(sex))
+penguin_counts <- penguins |>
+  mutate(year = as.character(year)) |>
+  group_by(species, island, sex, year) |>
+  summarise(n = n(), .groups = 'drop')
+penguin_counts_wider <- penguin_counts |>
+  pivot_wider(
+    names_from = c(species, sex),
+    values_from = n
+  ) |>
+  # Make missing numbers (NAs) into zero
+  mutate(across(.cols = -(1:2), .fns = ~replace_na(., replace = 0))) |>
+  arrange(island, year)
+
+actual_colnames <- colnames(penguin_counts_wider)
+desired_colnames <- actual_colnames |>
+  str_remove('(Adelie|Gentoo|Chinstrap)_') |>
+  str_to_title()
+names(desired_colnames) <- actual_colnames
+
+
+penguins_table <- penguin_counts_wider |>
+  mutate(across(.cols = -(1:2), ~if_else(. == 0, NA_integer_, .))) |>
+  mutate(
+    island = as.character(island),
+    year = as.numeric(year),
+    island = paste0('Island: ', island)
+  ) |>
+  gt(groupname_col = 'island', rowname_col = 'year') |>
+  cols_label(.list = desired_colnames) |>
+  tab_spanner(
+    label = md('**Adelie**'),
+    columns = 3:4
+  ) |>
+  tab_spanner(
+    label = md('**Chinstrap**'),
+    columns = c('Chinstrap_female', 'Chinstrap_male')
+  ) |>
+  tab_spanner(
+    label =  md('**Gentoo**'),
+    columns = contains('Gentoo')
+  ) |>
+  tab_header(
+    title = 'Penguins in the Palmer Archipelago',
+    subtitle = 'Data is courtesy of the {palmerpenguins} R package'
+  ) |>
+  sub_missing(missing_text = '-') |>
+  summary_rows(
+    groups = TRUE,
+    fns = list(
+      'Maximum' = ~max(.),
+      'Total' = ~sum(.)
+    ),
+    formatter = fmt_number,
+    decimals = 0,
+    missing_text = '-'
+  )  |>
+  tab_options(
+    data_row.padding = px(2),
+    summary_row.padding = px(3), # A bit more padding for summaries
+    row_group.padding = px(4)    # And even more for our groups
+  ) |>
+  opt_stylize(style = 6, color = 'gray')
+
+penguins_table
 ```
 
 
@@ -120,5 +180,5 @@ a _very_ dark background for the effect to work. I think I know the reason, but
 I'm not confident enough to write it down here.
 
 The color picker controls will look very weird when the effect is active.
-This is the transformation stepping on its own toes. 
+This is the transformation stepping on its own toes.
 I believe can be fixed with a bit more love and care.
