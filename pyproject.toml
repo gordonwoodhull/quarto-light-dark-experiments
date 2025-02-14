@@ -12,6 +12,7 @@ dependencies = [
     "matplotlib>=3.10.0",
     "plotly<6",
     "plotnine>=0.14.5",
+    "pygal>=3.0.5",
     "scikit-learn>=1.6.1",
     "seaborn>=0.13.2",
     "vega-datasets>=0.9.0",

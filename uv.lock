@@ -1339,6 +1339,18 @@ wheels = [
 ]
 
 [[package]]
+name = "pygal"
+version = "3.0.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "importlib-metadata" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/49/7b/8f50821a0f1585881ef40ae13ecb7603b0d81ef99fedf992ec35e6b6f7d5/pygal-3.0.5.tar.gz", hash = "sha256:c0a0f34e5bc1c01975c2bfb8342ad521e293ad42e525699dd00c4d7a52c14b71", size = 80489 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/22/7d/b5d656dbeb73f488ce7409a75108a775f6cf8e20624ed8025a9476cbc1bb/pygal-3.0.5-py3-none-any.whl", hash = "sha256:a3268a5667b470c8fbbb0eca7e987561a7321caeba589d40e4c1bc16dbe71393", size = 129548 },
+]
+
+[[package]]
 name = "pygments"
 version = "2.19.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1467,6 +1479,7 @@ dependencies = [
     { name = "matplotlib" },
     { name = "plotly" },
     { name = "plotnine" },
+    { name = "pygal" },
     { name = "scikit-learn" },
     { name = "seaborn" },
     { name = "vega-datasets" },
@@ -1481,6 +1494,7 @@ requires-dist = [
     { name = "matplotlib", specifier = ">=3.10.0" },
     { name = "plotly", specifier = "<6" },
     { name = "plotnine", specifier = ">=0.14.5" },
+    { name = "pygal", specifier = ">=3.0.5" },
     { name = "scikit-learn", specifier = ">=1.6.1" },
     { name = "seaborn", specifier = ">=0.13.2" },
     { name = "vega-datasets", specifier = ">=0.9.0" },
