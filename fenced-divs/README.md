@@ -27,8 +27,6 @@ body.quarto-dark .quarto-light-content {
 
 ## Jupyter implementation
 
-See also: [Experiments with dark mode in Quarto's knitr engine](https://github.com/gordonwoodhull/dark-mode-experiments-knitr)
-
 ### Emitting **marker spans** in Markdown
 
 In Jupyter, we have to run code for each of the plots; there is no way that we know to replay plots with different color themes.
