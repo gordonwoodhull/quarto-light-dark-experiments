@@ -23,8 +23,6 @@ body.quarto-dark .quarto-light-content {
 
 ## knitr implementation
 
-See also: [Experiments with dark mode in Quarto's Jupyter engine](https://github.com/gordonwoodhull/dark-mode-experiments-jupyter)
-
 We rely on knitr's vectorized `dev` chunk option, with corresponding filenames:
 
 ```
