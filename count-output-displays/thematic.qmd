@@ -11,7 +11,8 @@ execute:
   echo: false
   warning: false
 filters:
-  - light-dark-cod-sequence.lua
+  - at: pre-ast
+    path: light-dark-cod-sequence.lua
 ---
 
 ```{r}
@@ -29,8 +30,10 @@ thematic_brand <- function(brand_yml) {
 ```
 
 ## ggplot
+### with crossref but no caption
 
 ```{r}
+#| label: fig-thematic-ggplot
 #| classes: quarto-light-dark-container
 thematic_brand('../united-brand.yml')
 ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
@@ -40,8 +43,10 @@ ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_
 ```
 
 ## base R graphics
+### with caption but no crossref
 
 ```{r}
+#| fig-cap: thematic - base r graphics
 #| classes: quarto-light-dark-container
 thematic_brand('../united-brand.yml')
 plot(
@@ -56,9 +61,12 @@ plot(
 )
 ```
 
-
+## patchwork
+### with crossref and caption
 
 ```{r}
+#| label: fig-thematic-patchwork
+#| fig-cap: thematic - patchwork
 #| classes: quarto-light-dark-container
 library(ggplot2)
 library(patchwork)
