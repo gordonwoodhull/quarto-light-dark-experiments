@@ -65,7 +65,9 @@ plt.show(block=False)
 ```{python}
 #| echo: false
 #| fig-cap: matplotlib sine wave
-#| author: "anthropic claude-3-5-sonnet-20240620"
+#| classes: quarto-light-dark-container
+
+# author: "anthropic claude-3-5-sonnet-20240620"
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -104,6 +106,7 @@ plt.show()
 #| echo: false
 #| label: fig-matplotlib-cosine
 #| fig-cap: matplotlib cosine wave
+#| classes: quarto-light-dark-container
 import numpy as np
 import matplotlib.pyplot as plt
 
