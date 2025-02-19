@@ -13,6 +13,8 @@ execute:
 filters:
   - at: pre-ast
     path: light-dark-cod-sequence.lua
+  - at: post-render
+    path: remove-contradictory-light-dark.lua
 ---
 
 ```{r}

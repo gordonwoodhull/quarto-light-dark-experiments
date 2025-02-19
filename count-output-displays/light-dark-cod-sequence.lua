@@ -77,27 +77,42 @@ function Div(div)
 
   -- if light is a figure but dark is not, dupe light figure and replace src
   -- to preserve caption, which only goes on first
-  if stride == 1 and lightDiv.content[1].caption and not darkDiv.content[1].caption then
-    local darkFigure = lightDiv.content[1]:walk {} -- already has identifier removed
-    darkFigure.content[1].content[1].src = darkDiv.content[1].content[1].src
-    darkContents:insert(darkFigure)
+  if stride == 1 then
+    local lightImage, darkImage
+    if lightDiv.content[1].caption and not darkDiv.content[1].caption then
+      quarto.log.output('dark div has no figure')
+      if lightDiv.content[1].content
+          and lightDiv.content[1].content[1] -- Plain
+          and lightDiv.content[1].content[1].content
+          and lightDiv.content[1].content[1].content[1] then -- Image
+        lightImage = lightDiv.content[1].content[1].content[1]
+        darkImage = darkDiv.content[1].content[1]
+      end
   -- if both are figures containing images, move image from dark figure into light one
-  elseif stride == 1 and lightDiv.content[1].caption and darkDiv.content[1].caption then
-    quarto.log.output('both figure')
-    if lightDiv.content[1].content
-        and lightDiv.content[1].content[1] -- Plain
-        and lightDiv.content[1].content[1].content
-        and lightDiv.content[1].content[1].content[1] -- Image
-        and darkDiv.content[1].content
-        and darkDiv.content[1].content[1] -- Plain
-        and darkDiv.content[1].content[1].content
-        and darkDiv.content[1].content[1].content[1] then -- Image
-      local lightImage = lightDiv.content[1].content[1].content[1]
-      local darkImage = darkDiv.content[1].content[1].content[1]
+    elseif lightDiv.content[1].caption and darkDiv.content[1].caption then
+      quarto.log.output('both figure')
+      if lightDiv.content[1].content
+          and lightDiv.content[1].content[1] -- Plain
+          and lightDiv.content[1].content[1].content
+          and lightDiv.content[1].content[1].content[1] -- Image
+          and darkDiv.content[1].content
+          and darkDiv.content[1].content[1] -- Plain
+          and darkDiv.content[1].content[1].content
+          and darkDiv.content[1].content[1].content[1] then -- Image
+        lightImage = lightDiv.content[1].content[1].content[1]
+        darkImage = darkDiv.content[1].content[1].content[1]
+      end
+    end
+    if lightImage and darkImage then
       lightImage.attr.classes:insert 'quarto-light-content'
       darkImage.attr.classes:insert 'quarto-dark-content'
-      lightDiv.content[1].content[1].content:insert(2, darkImage)
-      lightDiv.attr.identifier = div.attr.identifier
+      lightDiv.content[1].content = pandoc.Blocks({
+        pandoc.Div({
+          pandoc.Plain(lightImage),
+          pandoc.Plain(darkImage)
+        })
+      })
+      lightDiv.content[1].attr.identifier = div.attr.identifier
       div.attr.identifier = ""
       lightContents = nil
       darkContents = nil
@@ -121,6 +136,7 @@ function Div(div)
     end
   end
 
+  quarto.log.output('lightContents', lightContents)
   local outj = indices[lightDiv]
   if lightContents then
     div.content[indices[lightDiv]] = pandoc.Div(lightContents, pandoc.Attr("", {'quarto-light-content'}, {}))

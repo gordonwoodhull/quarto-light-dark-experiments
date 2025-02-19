@@ -12,6 +12,8 @@ format:
 filters:
   - at: pre-ast
     path: light-dark-cod-sequence.lua
+  - at: post-render
+    path: remove-contradictory-light-dark.lua
 ---
 
 ## Question
@@ -56,6 +58,8 @@ def set_brand_theme(brand_yml):
 
 ```{python}
 #| echo: false
+#| label: fig-bokeh
+#| fig-cap: claude attempts to draw a violin plot with bokeh
 #| classes: quarto-light-dark-container
 import pandas as pd
 import numpy as np

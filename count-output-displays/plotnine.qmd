@@ -13,6 +13,8 @@ keep-md: true
 filters:
   - at: pre-ast
     path: light-dark-cod-sequence.lua
+  - at: post-render
+    path: remove-contradictory-light-dark.lua
 ---
 
 ## Question
@@ -39,6 +41,7 @@ theme_slate = load_brand_theme('../slate-brand.yml')
 
 ```{python}
 #| classes: quarto-light-dark-container
+#| label: fig-plotnine-violin
 #| fig-cap: plotnine violin plot
 import pandas as pd
 from sklearn.datasets import load_iris
