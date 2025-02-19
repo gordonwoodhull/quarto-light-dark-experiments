@@ -81,11 +81,34 @@ function Div(div)
     local darkFigure = lightDiv.content[1]:walk {} -- already has identifier removed
     darkFigure.content[1].content[1].src = darkDiv.content[1].content[1].src
     darkContents:insert(darkFigure)
+  -- if both are figures containing images, move image from dark figure into light one
+  elseif stride == 1 and lightDiv.content[1].caption and darkDiv.content[1].caption then
+    quarto.log.output('both figure')
+    if lightDiv.content[1].content
+        and lightDiv.content[1].content[1] -- Plain
+        and lightDiv.content[1].content[1].content
+        and lightDiv.content[1].content[1].content[1] -- Image
+        and darkDiv.content[1].content
+        and darkDiv.content[1].content[1] -- Plain
+        and darkDiv.content[1].content[1].content
+        and darkDiv.content[1].content[1].content[1] then -- Image
+      local lightImage = lightDiv.content[1].content[1].content[1]
+      local darkImage = darkDiv.content[1].content[1].content[1]
+      lightImage.attr.classes:insert 'quarto-light-content'
+      darkImage.attr.classes:insert 'quarto-dark-content'
+      lightDiv.content[1].content[1].content:insert(2, darkImage)
+      lightDiv.attr.identifier = div.attr.identifier
+      div.attr.identifier = ""
+      lightContents = nil
+      darkContents = nil
+      quarto.log.output('image patchup complete', lightDiv)
+    end
   else
     for i = indices[darkDiv], #div.content do
       local cod = div.content[i] -- dark cell-output-display
       -- remove identifier from figure
       if cod.content[1].caption then
+        quarto.log.output('waht would this mean')
         cod.content[1].attr.identifier = ""
       -- or from image
       elseif cod.content[1].content
@@ -98,14 +121,25 @@ function Div(div)
     end
   end
 
-  div.content[indices[lightDiv]] = pandoc.Div(lightContents, pandoc.Attr("", {'quarto-light-content'}, {}))
-  div.content[indices[lightDiv] + 1] = pandoc.Div(darkContents, pandoc.Attr("", {'quarto-dark-content'}, {}))
-  local outj = indices[lightDiv] + 1
-  if caption then
+  local outj = indices[lightDiv]
+  if lightContents then
+    div.content[indices[lightDiv]] = pandoc.Div(lightContents, pandoc.Attr("", {'quarto-light-content'}, {}))
     outj = outj + 1
-    div.content[outj] = caption
+  else
+    -- we have modified lightDiv
+    outj = outj + 1
   end
-  for i = outj + 1, #div.content do
+  if darkContents then
+    div.content[indices[lightDiv] + 1] = pandoc.Div(darkContents, pandoc.Attr("", {'quarto-dark-content'}, {}))
+    outj = outj + 1
+  end
+
+  if caption then
+    div.content[outj] = caption
+    outj = outj + 1
+  end
+  quarto.log.output('delete cods from', outj)
+  for i = outj, #div.content do
     div.content[i] = nil
   end
   return div
