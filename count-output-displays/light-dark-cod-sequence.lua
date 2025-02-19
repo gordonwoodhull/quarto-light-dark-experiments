@@ -51,22 +51,23 @@ function Div(div)
   local caption
   local identifier = nil
   for i = indices[lightDiv], indices[darkDiv]-1 do
+    local cod = div.content[i] -- light cell-output-display
     -- remove identifier from figure
-    if div.content[i].content[1].caption and div.content[i].content[1].attr.identifier then
-      identifier = div.content[i].content[1].attr.identifier
-      div.content[i].content[1].attr.identifier = ""
+    if cod.content[1].caption and cod.content[1].attr.identifier then
+      identifier = cod.content[1].attr.identifier
+      cod.content[1].attr.identifier = ""
     -- else remove identifier from image
-    elseif div.content[i].content[1].content
-        and div.content[i].content[1].content[1]
-        and div.content[i].content[1].content[1].caption
-        and div.content[i].content[1].content[1].attr.identifier ~= "" then
-      identifier = div.content[i].content[1].content[1].attr.identifier
-      div.content[i].content[1].content[1].attr.identifier = ""
+    elseif cod.content[1].content
+        and cod.content[1].content[1]
+        and cod.content[1].content[1].caption
+        and cod.content[1].content[1].attr.identifier ~= "" then
+      identifier = cod.content[1].content[1].attr.identifier
+      cod.content[1].content[1].attr.identifier = ""
     end
 
-    lightContents:insert(div.content[i].content[1])
-    if #div.content[i].content > 1 then
-      caption = div.content[i].content[2]
+    lightContents:insert(cod.content[1])
+    if #cod.content > 1 then
+      caption = cod.content[2]
     end
   end
   -- if cell doesn't have identifier, use one from figure/imate, removing number at end
@@ -82,17 +83,18 @@ function Div(div)
     darkContents:insert(darkFigure)
   else
     for i = indices[darkDiv], #div.content do
+      local cod = div.content[i] -- dark cell-output-display
       -- remove identifier from figure
-      if div.content[i].content[1].caption then
-        div.content[i].content[1].attr.identifier = ""
+      if cod.content[1].caption then
+        cod.content[1].attr.identifier = ""
       -- or from image
-      elseif div.content[i].content[1].content
-          and div.content[i].content[1].content[1]
-          and div.content[i].content[1].content[1].caption
-          and div.content[i].content[1].content[1].attr.identifier ~= "" then
-        div.content[i].content[1].content[1].attr.identifier = ""
+      elseif cod.content[1].content
+          and cod.content[1].content[1]
+          and cod.content[1].content[1].caption
+          and cod.content[1].content[1].attr.identifier ~= "" then
+        cod.content[1].content[1].attr.identifier = ""
       end
-      darkContents:insert(div.content[i].content[1])
+      darkContents:insert(cod.content[1])
     end
   end
 
