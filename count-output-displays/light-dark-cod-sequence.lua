@@ -70,16 +70,21 @@ function Div(div)
       caption = cod.content[2]
     end
   end
-  -- if cell doesn't have identifier, use one from figure/imate, removing number at end
-  if identifier and div.attr.identifier == "" then
-    div.attr.identifier = identifier:gsub('%-%d+$', '')
+  -- if cell doesn't have identifier, use one from figure/image, removing number at end
+  if div.attr.identifier == "" then
+    if identifier then
+      identifier = identifier:gsub('%-%d+$', '')
+      div.attr.identifier = identifier
+    end
+  else
+    identifier = div.attr.identifier
   end
 
   -- if light is a figure but dark is not, dupe light figure and replace src
   -- to preserve caption, which only goes on first
   if stride == 1 then
     local lightImage, darkImage
-    if lightDiv.content[1].caption and not darkDiv.content[1].caption then
+    if identifier and lightDiv.content[1].caption and not darkDiv.content[1].caption then
       quarto.log.output('dark div has no figure')
       if lightDiv.content[1].content
           and lightDiv.content[1].content[1] -- Plain
@@ -89,7 +94,7 @@ function Div(div)
         darkImage = darkDiv.content[1].content[1]
       end
   -- if both are figures containing images, move image from dark figure into light one
-    elseif lightDiv.content[1].caption and darkDiv.content[1].caption then
+    elseif identifier and lightDiv.content[1].caption and darkDiv.content[1].caption then
       quarto.log.output('both figure')
       if lightDiv.content[1].content
           and lightDiv.content[1].content[1] -- Plain
