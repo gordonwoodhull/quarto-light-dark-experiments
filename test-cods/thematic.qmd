@@ -1,0 +1,114 @@
+---
+title: "knitr dark mode - thematic"
+format:
+  html:
+    css: ../light-dark.css
+    theme:
+      light: united
+      dark: slate
+    keep-md: true
+execute:
+  echo: false
+  warning: false
+filters:
+  - at: pre-ast
+    path: light-dark-cod-simplified.lua
+---
+
+```{r}
+#| echo: false
+#| warning: false
+library(ggplot2)
+
+thematic_brand <- function(brand_yml) {
+  brand <- yaml::yaml.load_file(brand_yml)
+  thematic::thematic_rmd(
+      bg=brand$color$background,
+      fg=brand$color$foreground,
+  )
+}
+```
+
+
+### no crossref, no caption
+
+```{r}
+#| classes: quarto-light-dark-container
+thematic_brand('../united-brand.yml')
+ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
+
+thematic_brand('../slate-brand.yml')
+ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
+```
+
+## ggplot
+### with crossref but no caption
+
+::: {#fig-thematic-ggplot}
+```{r}
+#| classes: quarto-light-dark-container
+thematic_brand('../united-brand.yml')
+ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
+
+thematic_brand('../slate-brand.yml')
+ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
+```
+:::
+
+## base R graphics
+### with caption but no crossref
+
+::: {}
+```{r}
+#| classes: quarto-light-dark-container
+thematic_brand('../united-brand.yml')
+plot(
+    palmerpenguins::penguins$bill_length_mm,
+    palmerpenguins::penguins$bill_depth_mm,
+)
+
+thematic_brand('../slate-brand.yml')
+plot(
+    palmerpenguins::penguins$bill_length_mm,
+    palmerpenguins::penguins$bill_depth_mm,
+)
+```
+
+thematic - base r graphics
+
+:::
+
+## patchwork
+### with crossref and caption
+
+::: {#fig-thematic-patchwork}
+```{r}
+#| classes: quarto-light-dark-container
+library(ggplot2)
+library(patchwork)
+
+#generate three scatterplots
+plot1 <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point()
+
+plot2 <- ggplot(mtcars, aes(mpg, disp)) +
+  geom_point()
+
+plot3 <- ggplot(mtcars, aes(mpg, hp)) +
+  geom_point()
+
+#display all three scatterplots in same graphic
+thematic_brand('../united-brand.yml')
+plot1 + plot2 + plot3
+
+thematic_brand('../slate-brand.yml')
+plot1 + plot2 + plot3
+
+```
+thematic - patchwork
+:::
+
+
+Here's a [link](https://example.com).
+
+{{< lipsum 3 >}}
