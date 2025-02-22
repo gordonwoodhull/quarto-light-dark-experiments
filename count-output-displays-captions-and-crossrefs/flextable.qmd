@@ -11,7 +11,8 @@ execute:
   echo: false
   warning: false
 filters:
-  - light-dark-cod-sequence.lua
+  - at: pre-ast
+    path: light-dark-cod-sequence.lua
 ---
 
 ```{r}
@@ -37,6 +38,7 @@ slate_theme <- flextable_brand_theme('../slate-brand.yml')
 
 ```{r}
 #| classes: quarto-light-dark-container
+#| fig-cap: table caption
 
 ft <- flextable(airquality[ sample.int(10),])
 ft <- add_header_row(ft,

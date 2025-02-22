@@ -9,7 +9,8 @@ format:
       dark: slate
 keep-md: true
 filters:
-  - light-dark-cod-sequence.lua
+  - at: pre-ast
+    path: light-dark-cod-sequence.lua
 ---
 
 
@@ -44,6 +45,8 @@ def my_theme(brand_yml) -> alt.theme.ThemeConfig:
 
 ```{python}
 #| echo: false
+#| label: fig-altair
+#| fig-cap: altair cars plot
 #| classes: quarto-light-dark-container
 
 # load a sample dataset as a pandas DataFrame

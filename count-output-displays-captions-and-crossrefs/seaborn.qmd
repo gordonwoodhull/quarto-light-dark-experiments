@@ -9,7 +9,8 @@ format:
       dark: slate
 keep-md: true
 filters:
-  - light-dark-cod-sequence.lua
+  - at: pre-ast
+    path: light-dark-cod-sequence.lua
 author: "openai gpt-4o"
 date: 2024-12-25 18:31:06.502548
 ---
@@ -52,6 +53,8 @@ def seaborn_params_from_brand(brand_yml):
 ```{python}
 #| echo: false
 #| classes: quarto-light-dark-container
+#| label: fig-seaborn-violin
+#| fig-cap: seaborn violin plot
 import seaborn as sns
 import matplotlib.pyplot as plt
 

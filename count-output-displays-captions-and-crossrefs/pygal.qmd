@@ -9,7 +9,8 @@ format:
       dark: slate
 keep-md: true
 filters:
-  - light-dark-cod-sequence.lua
+  - at: pre-ast
+    path: light-dark-cod-sequence.lua
 ---
 
 ```{python}
