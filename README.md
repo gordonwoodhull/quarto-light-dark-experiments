@@ -51,6 +51,18 @@ It does not currently work when a plot emits more than one `cell-output-display`
 
 Examples in the `count-output-displays/` subdirectory.
 
+### With captions and crossrefs
+
+A few days were lost on a quixotic attempt to allow caption and crossref cell annotations along with light and dark content.
+
+This was not time wasted, because I learned a lot about those
+
+The fruits of this excursion can be found in the `count-output-displays-captions-and-crossrefs/` subdirectory. And the experiments where it went horribly wrong trying to fix the last few bugs are on the `caption-plus-crossref` branch.
+
+Everything works fine when we only allow captions and crossrefs for light/dark cells using the fenced div syntax.
+
+The `matplotlib.qmd`, `thematic.qmd`, `altair.qmd`, and `plotly-r.qmd` documents in the `count-output-displays/` subdirectory demonstrate all combinations of caption and crossref using the fenced div syntax.
+
 ## Filter approaches
 
 If the user does not care about exact colors and styling, and does not specify how to produce dark brand plots, we can filter the light brand plots in the browser to produce an approximate dark mode version.
