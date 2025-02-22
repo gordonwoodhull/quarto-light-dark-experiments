@@ -28,7 +28,8 @@ thematic_brand <- function(brand_yml) {
 }
 ```
 
-## ggplot
+
+### no crossref, no caption
 
 ```{r}
 #| classes: quarto-light-dark-container
@@ -38,9 +39,25 @@ ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_
 thematic_brand('../slate-brand.yml')
 ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
 ```
+
+## ggplot
+### with crossref but no caption
+
+::: {#fig-thematic-ggplot}
+```{r}
+#| classes: quarto-light-dark-container
+thematic_brand('../united-brand.yml')
+ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
+
+thematic_brand('../slate-brand.yml')
+ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
+```
+:::
 
 ## base R graphics
+### with caption but no crossref
 
+::: {}
 ```{r}
 #| classes: quarto-light-dark-container
 thematic_brand('../united-brand.yml')
@@ -56,8 +73,14 @@ plot(
 )
 ```
 
+thematic - base r graphics
 
+:::
 
+## patchwork
+### with crossref and caption
+
+::: {#fig-thematic-patchwork}
 ```{r}
 #| classes: quarto-light-dark-container
 library(ggplot2)
@@ -81,6 +104,8 @@ thematic_brand('../slate-brand.yml')
 plot1 + plot2 + plot3
 
 ```
+thematic - patchwork
+:::
 
 
 Here's a [link](https://example.com).

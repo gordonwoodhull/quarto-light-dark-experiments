@@ -14,15 +14,8 @@ function Div(div)
 
   local start, stride
   if #cods > 2 then
-    if cods[1].content[1].text:match '%.bk%-notebook%-logo' then -- bokeh
-      start = 3
-      stride = 2
-    end
-    if not start or not stride then
-      quarto.log.warning("don't know start/stride for " .. #cods .. ' cell-output-displays, light/dark disabled')
-      quarto.log.output(cods[1])
-      return nil
-    end
+    quarto.log.warning("more that two cell-output-display not supported")
+    return nil
   elseif #cods < 2 then
     quarto.log.warning('not enough cell-output-display to do light/dark')
     return nil
@@ -31,8 +24,9 @@ function Div(div)
     stride = 1
   end
 
+  -- fail if there is other content
   local lightDiv = cods[start]
-  local darkDiv = cods[start+stride]
+  local darkDiv = cods[start+1]
   local nlight = indices[darkDiv] - indices[lightDiv]
   local ndark = #div.content - indices[darkDiv] + 1
   if nlight ~= stride or ndark ~= stride then
@@ -40,16 +34,12 @@ function Div(div)
     return nil
   end
 
-  local lightContents = pandoc.Blocks({})
-  local darkContents = pandoc.Blocks({})
-  for i = indices[lightDiv], indices[darkDiv]-1 do
-    lightContents:insert(div.content[i].content[1])
-  end
-  for i = indices[darkDiv], #div.content do
-    darkContents:insert(div.content[i].content[1])
-  end
-  div.content[indices[lightDiv]] = pandoc.Div(lightContents, pandoc.Attr("", {'quarto-light-content'}, {}))
-  div.content[indices[lightDiv] + 1] = pandoc.Div(darkContents, pandoc.Attr("", {'quarto-dark-content'}, {}))
+  div.content[indices[lightDiv]] = pandoc.Div(
+    pandoc.Blocks({lightDiv.content[1]}),
+    pandoc.Attr("", {'quarto-light-content'}, {}))
+  div.content[indices[darkDiv]] = pandoc.Div(
+    pandoc.Blocks({darkDiv.content[1]}),
+    pandoc.Attr("", {'quarto-dark-content'}, {}))
   for i = indices[lightDiv] + 2, #div.content do
     div.content[i] = nil
   end
