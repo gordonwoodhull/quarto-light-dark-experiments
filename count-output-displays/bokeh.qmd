@@ -107,7 +107,7 @@ p.xaxis.axis_label = "Species"
 p.yaxis.axis_label = "Sepal Length (cm)"
 
 # Show the plot
-output_notebook()
+output_notebook(hide_banner=True)
 
 set_brand_theme('../united-brand.yml')
 show(p)
