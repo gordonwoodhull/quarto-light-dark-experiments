@@ -59,7 +59,7 @@ The fruits of this excursion can be found in the `count-output-displays-captions
 
 ### Use the fenced div syntax instead
 
-Captions and crossrefs work fine in combination with light/dark cells when we use the fenced div syntax, i.e. but them on a parent div. And it doesn't matter when we run the filter. We will simply not allow caption/crossref to be combined with light/dark in the cell annotations, with the error suggesting the fenced div syntax, in the integrated feature.
+Captions and crossrefs work fine in combination with light/dark cells when we use the fenced div syntax, i.e. but them on a parent div. And it doesn't matter when we run the filter. When we integrate this feature, we will simply not allow caption/crossref to be combined with light/dark in the cell annotations, with the error suggesting the fenced div syntax.
 
 The `matplotlib.qmd`, `thematic.qmd`, `altair.qmd`, and `plotly-r.qmd` documents in the `count-output-displays/` subdirectory demonstrate all combinations of caption and crossref using the fenced div syntax.
 
