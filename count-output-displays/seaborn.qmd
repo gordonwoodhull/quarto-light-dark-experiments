@@ -51,7 +51,7 @@ def seaborn_params_from_brand(brand_yml):
 
 ```{python}
 #| echo: false
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 import seaborn as sns
 import matplotlib.pyplot as plt
 

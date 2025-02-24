@@ -42,7 +42,7 @@ pio.templates['slate_brand'] = plotly_brand('../slate-brand.yml')
 ```
 
 ```{python}
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 import plotly.express as px
 import pandas as pd
 from sklearn.datasets import load_iris

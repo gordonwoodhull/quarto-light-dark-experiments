@@ -42,7 +42,7 @@ First, we stipulate that the code block (and `.cell`) should only contain `.cell
 The user should add
 
 ````
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 ````
 
 to this code block. Then our filter counts the number of `.cell-output-display` and if it is two, we use those two as light and dark plots.

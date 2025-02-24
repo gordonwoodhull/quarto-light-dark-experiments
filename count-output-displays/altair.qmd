@@ -55,7 +55,7 @@ _ = alt.renderers.enable('html')
 
 ```{python}
 #| echo: false
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 
 chart = alt.Chart(cars).mark_point().encode(
         x='Horsepower',
@@ -85,7 +85,7 @@ chart.show()
 
 ```{python}
 #| echo: false
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 
 chart = alt.Chart(cars).mark_point().encode(
         x='Year',
@@ -116,7 +116,7 @@ chart.show()
 
 ```{python}
 #| echo: false
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 
 chart = alt.Chart(cars).mark_point().encode(
         x='Horsepower',
@@ -149,7 +149,7 @@ cars dataset, acceleration by horsepower
 
 ```{python}
 #| echo: false
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 
 chart = alt.Chart(cars).mark_point().encode(
         x='Year',

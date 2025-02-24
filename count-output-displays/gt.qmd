@@ -34,7 +34,7 @@ slate_theme <- gt_brand('../slate-brand.yml')
 ```
 
 ```{r}
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 library(tidyverse)
 penguins <- palmerpenguins::penguins |> filter(!is.na(sex))
 penguin_counts <- penguins |>

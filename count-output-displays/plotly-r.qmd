@@ -34,7 +34,7 @@ slate_theme <- plotly_brand('../slate-brand.yml')
 ### no caption or crossref
 
 ```{r}
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 fig <- plot_ly(iris, x = ~Species, y = ~Sepal.Width, type = 'violin',
                box = list(visible = TRUE),
                meanline = list(visible = TRUE),
@@ -55,7 +55,7 @@ data("iris")
 ::: {#fig-plotly-sepal-length}
 
 ```{r}
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 
 fig <- plot_ly(iris, x = ~Species, y = ~Sepal.Length, type = 'violin',
                box = list(visible = TRUE),
@@ -73,7 +73,7 @@ fig |> slate_theme()
 
 ::: {}
 ```{r}
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 
 # Load the iris dataset
 data("iris")
@@ -97,7 +97,7 @@ Violin plot of Petal Width by Species
 
 ::: {#fig-plotly-petal-length}
 ```{r}
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 
 # Load the iris dataset
 data("iris")

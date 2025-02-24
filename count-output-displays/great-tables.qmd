@@ -30,7 +30,7 @@ slate_theme = theme_options('../slate-brand.yml')
 
 
 ```{python}
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 from great_tables import GT, exibble
 from IPython.display import display
 

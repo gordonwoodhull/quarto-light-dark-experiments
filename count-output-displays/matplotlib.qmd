@@ -40,7 +40,7 @@ def mplstyle_from_brand(brand_file):
 ### No crossref or caption
 ```{python}
 #| echo: false
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -81,7 +81,7 @@ plt.show()
 ::: {#fig-matplotlib-line}
 ```{python}
 #| echo: false
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 import matplotlib.pyplot as plt
 
 with open("../united-brand.yml") as brand_file:
@@ -104,7 +104,7 @@ plt.show(block=False)
 ::: {}
 ```{python}
 #| echo: false
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 
 # author: "anthropic claude-3-5-sonnet-20240620"
 import numpy as np
@@ -147,7 +147,7 @@ matplotlib sine wave
 ::: {#fig-matplotlib-cosine}
 ```{python}
 #| echo: false
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 import numpy as np
 import matplotlib.pyplot as plt
 

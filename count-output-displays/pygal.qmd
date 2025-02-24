@@ -37,7 +37,7 @@ slate_style = pygal_brand_style('../slate-brand.yml')
 
 ```{python}
 #| echo: false
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 
 # https://stackoverflow.com/questions/36322683/pygal-charts-not-displaying-tooltips-in-jupyter-ipython-notebook#45813876
 

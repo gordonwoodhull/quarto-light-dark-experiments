@@ -32,7 +32,7 @@ thematic_brand <- function(brand_yml) {
 ### no crossref, no caption
 
 ```{r}
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 thematic_brand('../united-brand.yml')
 ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
 
@@ -45,11 +45,13 @@ ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_
 
 ::: {#fig-thematic-ggplot}
 ```{r}
-#| classes: quarto-light-dark-container
-thematic_brand('../united-brand.yml')
+#| renderings:
+#|   - dark
+#|   - light
+thematic_brand('../slate-brand.yml')
 ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
 
-thematic_brand('../slate-brand.yml')
+thematic_brand('../united-brand.yml')
 ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
 ```
 :::
@@ -59,7 +61,7 @@ ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_
 
 ::: {}
 ```{r}
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 thematic_brand('../united-brand.yml')
 plot(
     palmerpenguins::penguins$bill_length_mm,
@@ -82,7 +84,7 @@ thematic - base r graphics
 
 ::: {#fig-thematic-patchwork}
 ```{r}
-#| classes: quarto-light-dark-container
+#| renderings: [light, dark]
 library(ggplot2)
 library(patchwork)
 
