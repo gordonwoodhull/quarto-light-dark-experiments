@@ -1,0 +1,74 @@
+---
+title: "jupyter dark mode - plotnine"
+author: "anthropic claude-3-5-sonnet-latest"
+date: "2025-01-22 14:25:54.403762"
+engine: jupyter
+format:
+  html:
+    css: ../light-dark.css
+    theme:
+      light: united
+      dark: slate
+keep-md: true
+filters:
+  - at: pre-ast
+    path: light-dark-cod-sequence.lua
+---
+
+## Question
+Create a violin plot of the iris data using plotnine.
+
+## Overview
+We'll create a violin plot to visualize the distribution of measurements across different iris species using the plotnine library, which implements a grammar of graphics in Python similar to R's ggplot2.
+
+## Code and Explanation
+
+```{python}
+import yaml
+from plotnine import *
+def load_brand_theme(brand_yml):
+  brand = yaml.safe_load(open(brand_yml).read())
+  return theme(
+    plot_background=element_rect(fill=brand["color"]["background"], size=0),
+    text=element_text(color=brand["color"]["foreground"])
+  )
+
+theme_united = load_brand_theme('../united-brand.yml')
+theme_slate = load_brand_theme('../slate-brand.yml')
+```
+
+```{python}
+#| classes: quarto-light-dark-container
+#| fig-cap: plotnine violin plot
+import pandas as pd
+from sklearn.datasets import load_iris
+
+
+
+# Load the iris dataset
+iris = load_iris()
+iris_df = pd.DataFrame(iris.data, columns=iris.feature_names)
+iris_df['species'] = pd.Categorical(iris.target_names[iris.target])
+
+plot = (ggplot(iris_df, aes(x='species', y='sepal length (cm)', fill='species'))
+    + geom_violin()
+    + labs(title='Distribution of Sepal Length by Iris Species',
+            x='Species',
+            y='Sepal Length (cm)')
+    + theme_minimal()
+)
+
+
+display(plot + theme_united)
+
+display(plot + theme_slate)
+```
+
+This code:
+
+1. Imports the necessary libraries
+2. Loads the iris dataset and converts it to a pandas DataFrame
+3. Creates a violin plot showing the distribution of sepal length for each iris species
+4. Adds appropriate labels and uses a minimal theme for clean visualization
+
+The key correction in this version is using the proper column name 'sepal length (cm)' instead of 'sepal_length', as that's how it's named in the sklearn iris dataset. The violin plot combines aspects of a box plot with a density plot, showing the full distribution shape of the data. The width of each "violin" represents the density of data points at that y-value, making it easy to see where measurements are concentrated for each species.

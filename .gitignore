@@ -1,0 +1,14 @@
+.gitignore
+.quarto/
+*.html
+*.html.md
+*.pdf
+*_files/
+__pycache__/
+*.quarto_ipynb
+.Rhistory
+
+/.luarc.json
+
+/.quarto/
+_output/

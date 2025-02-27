@@ -1,0 +1,50 @@
+---
+title: "jupyter dark mode - great tables"
+engine: jupyter
+format:
+  html:
+    css: ../light-dark.css
+    theme:
+      light: united
+      dark: slate
+keep-md: true
+filters:
+  - at: pre-ast
+    path: light-dark-cod-sequence.lua
+---
+
+```{python}
+#| echo: false
+import yaml
+def theme_options(brand_yml):
+  brand = yaml.safe_load(open(brand_yml).read())
+  fg = brand["color"]["foreground"]
+  bg = brand["color"]["background"]
+  return {
+    'table_background_color': bg,
+    'table_font_color': fg
+  }
+
+united_theme = theme_options('../united-brand.yml')
+slate_theme = theme_options('../slate-brand.yml')
+```
+
+
+```{python}
+#| classes: quarto-light-dark-container
+from great_tables import GT, exibble
+from IPython.display import display
+
+gt_ex = (
+  GT(exibble.head(5), rowname_col="row", groupname_col="group")
+    .tab_header("THE HEADING", "(a subtitle)")
+    .tab_stubhead("THE STUBHEAD")
+    .tab_source_note("THE SOURCE NOTE")
+)
+
+display(gt_ex.tab_options(**united_theme))
+
+display(gt_ex.tab_options(**slate_theme))
+```
+
+{{< lipsum 2 >}}

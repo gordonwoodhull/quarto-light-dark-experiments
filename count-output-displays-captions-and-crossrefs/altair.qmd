@@ -1,0 +1,79 @@
+---
+title: "jupyter dark mode - altair"
+engine: jupyter
+format:
+  html:
+    css: ../light-dark.css
+    theme:
+      light: united
+      dark: slate
+keep-md: true
+filters:
+  - at: pre-ast
+    path: light-dark-cod-sequence.lua
+---
+
+
+```{python}
+#| echo: false
+# Define a custom theme function
+import yaml
+from functools import partial
+import altair as alt
+
+def my_theme(brand_yml) -> alt.theme.ThemeConfig:
+    brand = yaml.safe_load(open(brand_yml).read())
+    fg = brand["color"]["foreground"]
+    bg = brand["color"]["background"]
+    return {
+        'config': {
+            'view': {'stroke': 'transparent'},
+            'axis': {
+                'domainColor': fg,
+                'labelColor': fg,
+                'titleColor': fg,
+            },
+            'legend': {
+                'labelColor': fg,
+                'titleColor': fg,
+            },
+            'background': bg,  # Background color
+        }
+    }
+```
+
+
+```{python}
+#| echo: false
+#| label: fig-altair
+#| fig-cap: altair cars plot
+#| classes: quarto-light-dark-container
+
+# load a sample dataset as a pandas DataFrame
+from vega_datasets import data
+cars = data.cars()
+
+alt.renderers.enable('html')
+
+chart = alt.Chart(cars).mark_point().encode(
+        x='Horsepower',
+        y='Miles_per_Gallon',
+        color='Origin',
+    ).properties(width=800, height=500).interactive()
+
+# Register the custom theme and enable it
+@alt.theme.register("united_theme", enable = True)
+def united_theme() -> alt.theme.ThemeConfig:
+    return partial(my_theme, '../united-brand.yml')()
+
+chart.show()
+
+@alt.theme.register("slate_theme", enable = True)
+def slate_theme() -> alt.theme.ThemeConfig:
+    return partial(my_theme, '../slate-brand.yml')()
+
+chart.show()
+
+```
+
+{{< lipsum 2 >}}
