@@ -3,6 +3,10 @@ function trim(s)
   return (string.gsub(s, "^%s*(.-)%s*$", "%1"))
 end
 
+function jsonDecodeArray(json)
+  local status, result = pcall(quarto.json.decode, json)
+  return status and result or {json}
+end
 
 function Div(div)
   -- Only process cell div with renderings attr
@@ -11,7 +15,7 @@ function Div(div)
   end
   local renderingsJson = div.attributes['renderings']
   quarto.log.output('renderings json', renderingsJson)
-  local renderings = quarto.json.decode(renderingsJson)
+  local renderings = jsonDecodeArray(renderingsJson)
   if not type(renderings) == "table" or #renderings == 0 then
     quarto.log.warning("renderings expected array of rendering names, got", renderings)
     return nil
