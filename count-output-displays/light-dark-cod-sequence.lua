@@ -4,8 +4,13 @@ function trim(s)
 end
 
 function jsonDecodeArray(json)
-  local status, result = pcall(quarto.json.decode, json)
-  return status and result or {json}
+  if json:sub(1, 1) == '[' then
+    return quarto.json.decode(json)
+  elseif json:sub(1, 1) == '{' then
+    quarto.log.warning('expected array or scalar', json)
+  else
+    return {json}
+  end
 end
 
 function Div(div)
