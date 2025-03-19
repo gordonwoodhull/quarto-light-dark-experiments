@@ -1,0 +1,63 @@
+---
+title: "Jupyter dark mode - plotly for Python"
+author: "openai gpt-4o"
+date: "2024-10-23 16:52:22.554560"
+brand:
+  light: ../united-brand.yml
+  dark: ../slate-brand.yml
+---
+
+# Question
+
+How can I draw a violin plot of the Iris data using Plotly?
+
+# Explanation
+
+Plotly is an interactive plotting library that is ideal for creating detailed interactive plots, including violin plots. It is easy to create a violin plot using the `plotly.express` module, which simplifies many common plotting tasks. The Iris dataset, commonly used in machine learning, is built into the `sklearn` library. We will load this dataset, convert it into a suitable format using Pandas, and then plot it using Plotly.
+
+# Code
+
+```{python}
+#| echo: false
+import yaml
+import plotly.graph_objects as go
+import plotly.io as pio
+from functools import partial
+
+def plotly_brand(brand_yml):
+  brand = yaml.safe_load(open(brand_yml).read())
+  return go.layout.Template({'layout': {
+    'paper_bgcolor': brand["color"]["background"],
+    'plot_bgcolor': brand["color"]["background"],
+    'font_color': brand["color"]["foreground"],
+  }})
+pio.templates['united_brand'] = plotly_brand('../united-brand.yml')
+pio.templates['slate_brand'] = plotly_brand('../slate-brand.yml')
+```
+
+```{python}
+#| renderings: [light, dark]
+import plotly.express as px
+import pandas as pd
+from sklearn.datasets import load_iris
+from functools import partial
+
+# Load the iris dataset
+iris_data = load_iris()
+iris_df = pd.DataFrame(data=iris_data.data, columns=iris_data.feature_names)
+iris_df['species'] = pd.Categorical.from_codes(iris_data.target, iris_data.target_names)
+
+plot = px.violin(iris_df, x='species', y='sepal length (cm)', box=True, points="all",
+                title='Violin Plot of Sepal Length in Iris Dataset')
+
+
+# Plotting
+plot.update_layout(template='united_brand')
+display(plot)
+
+plot.update_layout(template='slate_brand')
+display(plot)
+
+```
+
+This code uses `plotly.express` to create a violin plot of the sepal length by species from the Iris dataset. The `sepal length (cm)` is plotted on the Y-axis, with each species on the X-axis. The violin plot provides insights into the distribution of sepal length measurements within each species, along with a box plot overlay and individual measurements as jittered points for detailed data analysis.
