@@ -15,11 +15,14 @@ library(ggplot2)
 
 thematic_brand <- function(brand_yml) {
   brand <- yaml::yaml.load_file(brand_yml)
-  thematic::thematic_rmd(
+  (function() {
+    thematic::thematic_rmd(
       bg=brand$color$background,
       fg=brand$color$foreground,
-  )
+  )})
 }
+united_thematic = thematic_brand('../united-brand.yml')
+slate_thematic = thematic_brand('../slate-brand.yml')
 ```
 
 
@@ -27,10 +30,10 @@ thematic_brand <- function(brand_yml) {
 
 ```{r}
 #| renderings: [light, dark]
-thematic_brand('../united-brand.yml')
+united_thematic()
 ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
 
-thematic_brand('../slate-brand.yml')
+slate_thematic()
 ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
 ```
 
@@ -42,10 +45,10 @@ ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_
 #| renderings:
 #|   - dark
 #|   - light
-thematic_brand('../slate-brand.yml')
+slate_thematic()
 ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
 
-thematic_brand('../united-brand.yml')
+united_thematic()
 ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
 ```
 :::
@@ -56,13 +59,13 @@ ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_
 ::: {}
 ```{r}
 #| renderings: [light, dark]
-thematic_brand('../united-brand.yml')
+united_thematic()
 plot(
     palmerpenguins::penguins$bill_length_mm,
     palmerpenguins::penguins$bill_depth_mm,
 )
 
-thematic_brand('../slate-brand.yml')
+slate_thematic()
 plot(
     palmerpenguins::penguins$bill_length_mm,
     palmerpenguins::penguins$bill_depth_mm,
@@ -93,10 +96,10 @@ plot3 <- ggplot(mtcars, aes(mpg, hp)) +
   geom_point()
 
 #display all three scatterplots in same graphic
-thematic_brand('../united-brand.yml')
+united_thematic()
 plot1 + plot2 + plot3
 
-thematic_brand('../slate-brand.yml')
+slate_thematic()
 plot1 + plot2 + plot3
 
 ```
