@@ -15,10 +15,9 @@ import os
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from cycler import cycler
+from functools import partial
 
-
-def mplstyle_from_brand(brand_file):
-    brand = yaml.safe_load(brand_file.read())
+def mplstyle_from_brand(brand):
     mpl.rcParams["axes.facecolor"] = brand["color"]["background"]
     mpl.rcParams["axes.edgecolor"] = brand["color"]["foreground"]
     mpl.rcParams["axes.labelcolor"] = brand["color"]["foreground"]
@@ -29,6 +28,16 @@ def mplstyle_from_brand(brand_file):
     mpl.rcParams["xtick.color"] = brand["color"]["foreground"]
     mpl.rcParams["ytick.color"] = brand["color"]["foreground"]
     mpl.rcParams["axes.prop_cycle"] = cycler('color', [brand["color"]["primary"]])
+
+
+def mplstyle_from_brand_file(brand_filename):
+    with open(brand_filename) as brand_file:
+        brand = yaml.safe_load(brand_file.read())
+        return partial(mplstyle_from_brand, brand)
+
+united_style = mplstyle_from_brand_file("../united-brand.yml")
+slate_style = mplstyle_from_brand_file("../slate-brand.yml")
+
 ```
 
 ### No crossref or caption
@@ -47,8 +56,7 @@ x = np.linspace(mean - 4*std_dev, mean + 4*std_dev, 1000)
 y = (1/(std_dev * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x - mean) / std_dev)**2)
 
 # Plotting
-with open("../united-brand.yml") as brand_file:
-    mplstyle_from_brand(brand_file)
+united_style()
 plt.figure(figsize=(8, 5))
 plt.plot(x, y, label='Normal Distribution')
 plt.title('Normal Distribution Curve')
@@ -58,8 +66,7 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
-with open("../slate-brand.yml") as brand_file:
-    mplstyle_from_brand(brand_file)
+slate_style()
 plt.figure(figsize=(8, 5))
 plt.plot(x, y, label='Normal Distribution')
 plt.title('Normal Distribution Curve')
@@ -78,15 +85,13 @@ plt.show()
 #| renderings: [light, dark]
 import matplotlib.pyplot as plt
 
-with open("../united-brand.yml") as brand_file:
-    mplstyle_from_brand(brand_file)
+united_style()
 plt.title("Hello")
 plt.plot([1,2,3])
 plt.grid(True)
 plt.show(block=False)
 
-with open("../slate-brand.yml") as brand_file:
-    mplstyle_from_brand(brand_file)
+slate_style()
 plt.figure()
 plt.title("Hello")
 plt.plot([1,2,3])
@@ -110,8 +115,7 @@ import matplotlib.pyplot as plt
 x = np.linspace(0, 2 * np.pi, 100)
 y = np.sin(x)
 
-with open("../united-brand.yml") as brand_file:
-    mplstyle_from_brand(brand_file)
+united_style()
 plt.figure(figsize=(10, 6))
 plt.plot(x, y)
 plt.title('Sine Wave')
@@ -122,8 +126,7 @@ plt.axhline(y=0, color='k', linestyle='--')
 plt.axvline(x=0, color='k', linestyle='--')
 plt.show()
 
-with open("../slate-brand.yml") as brand_file:
-    mplstyle_from_brand(brand_file)
+slate_style()
 plt.figure(figsize=(10, 6))
 plt.plot(x, y)
 plt.title('Sine Wave')
@@ -152,8 +155,7 @@ x = np.linspace(0, 2 * np.pi, 100)
 y = np.cos(x)
 
 # Create the plot
-with open("../united-brand.yml") as brand_file:
-    mplstyle_from_brand(brand_file)
+united_style()
 plt.figure(figsize=(10, 6))
 plt.plot(x, y)
 plt.title('Cosine Wave')
@@ -164,8 +166,7 @@ plt.axhline(y=0, color='k', linestyle='--')
 plt.axvline(x=0, color='k', linestyle='--')
 plt.show()
 
-with open("../slate-brand.yml") as brand_file:
-    mplstyle_from_brand(brand_file)
+slate_style()
 plt.figure(figsize=(10, 6))
 plt.plot(x, y)
 plt.title('Cosine Wave')
