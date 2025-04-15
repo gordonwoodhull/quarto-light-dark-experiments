@@ -40,7 +40,11 @@ def seaborn_params_from_brand(brand_yml):
         "text.color": brand["color"]["foreground"],
         "xtick.color": brand["color"]["foreground"],
         "ytick.color": brand["color"]["foreground"],
+        "grid.color": brand["color"]["foreground"],
     }
+
+united_params = seaborn_params_from_brand("../united-brand.yml")
+slate_params = seaborn_params_from_brand("../slate-brand.yml")
 ```
 
 
@@ -54,7 +58,7 @@ import matplotlib.pyplot as plt
 iris = sns.load_dataset("iris")
 
 # Set up the matplotlib figure
-sns.set_theme(rc = seaborn_params_from_brand("../united-brand.yml"))
+sns.set_theme(rc = united_params)
 g = sns.violinplot(x="species", y="sepal_length", data=iris, inner="quartile")
 g.set(title="Violin plot of Sepal Length by Species")
 plt.title("Hello")
@@ -62,7 +66,7 @@ plt.show(block=False)
 
 # note, must set new theme before starting new figure
 # otherwise axis area will be wrong color
-sns.set_theme(rc = seaborn_params_from_brand("../slate-brand.yml"))
+sns.set_theme(rc = slate_params)
 plt.figure()
 g = sns.violinplot(x="species", y="sepal_length", data=iris, inner="quartile")
 g.set(title="Violin plot of Sepal Length by Species")
