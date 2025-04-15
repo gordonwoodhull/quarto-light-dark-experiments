@@ -1,0 +1,21 @@
+---
+title: "knitr dark mode - ggplot"
+brand:
+  light: united-brand.yml
+  dark: slate-brand.yml
+---
+
+```{r}
+#| echo: false
+#| warning: false
+source("ggplot-helpers.R")
+darkmode_theme(brand_ggplot("united-brand.yml"), brand_ggplot("slate-brand.yml"))
+colour_scale <- scale_colour_manual(values = c("darkorange", "purple", "cyan4"))
+```
+
+```{r}
+#| renderings: [light, dark]
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point(aes(colour = factor(cyl))) +
+  colour_scale
+```
