@@ -110,6 +110,16 @@ set_brand_theme('../slate-brand.yml')
 show(p)
 ```
 
+Again!
+```{python}
+#| renderings: [light, foo, dark, bar]
+set_brand_theme('../united-brand.yml')
+show(p)
+
+set_brand_theme('../slate-brand.yml')
+show(p)
+```
+
 ## Explanation
 
 This code creates a violin plot of the sepal length distribution for each species in the Iris dataset using Bokeh. Here's a breakdown of what the code does:
