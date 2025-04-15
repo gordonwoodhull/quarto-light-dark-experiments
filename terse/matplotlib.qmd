@@ -12,24 +12,23 @@ keep-md: true
 import yaml
 import tempfile
 import os
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+from cycler import cycler
+
 
 def mplstyle_from_brand(brand_file):
     brand = yaml.safe_load(brand_file.read())
-    fd, name = tempfile.mkstemp("mplstyle")
-    os.close(fd)
-    with open(name, "w") as out:
-        out.write("axes.facecolor: \"%s\"\n" % brand["color"]["background"])
-        out.write("axes.edgecolor: \"%s\"\n" % brand["color"]["foreground"])
-        out.write("axes.labelcolor: \"%s\"\n" % brand["color"]["foreground"])
-        out.write("axes.titlecolor: \"%s\"\n" % brand["color"]["foreground"])
-        out.write("figure.facecolor: \"%s\"\n" % brand["color"]["background"])
-        out.write("figure.edgecolor: \"%s\"\n" % brand["color"]["foreground"])
-        out.write("text.color: \"%s\"\n" % brand["color"]["foreground"])
-        out.write("xtick.color: \"%s\"\n" % brand["color"]["foreground"])
-        out.write("ytick.color: \"%s\"\n" % brand["color"]["foreground"])
-        out.write("axes.prop_cycle: cycler('color', ['%s'])" % brand["color"]["primary"])
-    plt.style.use(name)
-    os.unlink(name)
+    mpl.rcParams["axes.facecolor"] = brand["color"]["background"]
+    mpl.rcParams["axes.edgecolor"] = brand["color"]["foreground"]
+    mpl.rcParams["axes.labelcolor"] = brand["color"]["foreground"]
+    mpl.rcParams["axes.titlecolor"] = brand["color"]["foreground"]
+    mpl.rcParams["figure.facecolor"] = brand["color"]["background"]
+    mpl.rcParams["figure.edgecolor"] = brand["color"]["foreground"]
+    mpl.rcParams["text.color"] = brand["color"]["foreground"]
+    mpl.rcParams["xtick.color"] = brand["color"]["foreground"]
+    mpl.rcParams["ytick.color"] = brand["color"]["foreground"]
+    mpl.rcParams["axes.prop_cycle"] = cycler('color', [brand["color"]["primary"]])
 ```
 
 ### No crossref or caption
