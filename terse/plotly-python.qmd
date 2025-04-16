@@ -33,6 +33,14 @@ def plotly_brand(brand_yml):
   }})
 pio.templates['united_brand'] = plotly_brand('../united-brand.yml')
 pio.templates['slate_brand'] = plotly_brand('../slate-brand.yml')
+
+def display_light_dark(plot):
+  plot.update_layout(template='united_brand')
+  display(plot)
+
+  plot.update_layout(template='slate_brand')
+  display(plot)
+
 ```
 
 ```{python}
@@ -52,13 +60,18 @@ plot = px.violin(iris_df, x='species', y='sepal length (cm)', box=True, points="
                 title='Violin Plot of Sepal Length in Iris Dataset')
 
 
-# Plotting
-plot.update_layout(template='united_brand')
-display(plot)
-
-plot.update_layout(template='slate_brand')
-display(plot)
-
+display_light_dark(plot)
 ```
+
+Again!
+
+
+```{python}
+#| echo: false
+#| renderings: [light, dark]
+display_light_dark(plot)
+```
+
+
 
 This code uses `plotly.express` to create a violin plot of the sepal length by species from the Iris dataset. The `sepal length (cm)` is plotted on the Y-axis, with each species on the X-axis. The violin plot provides insights into the distribution of sepal length measurements within each species, along with a box plot overlay and individual measurements as jittered points for detailed data analysis.
