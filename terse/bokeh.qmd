@@ -116,11 +116,7 @@ show_light_dark(p)
 Again!
 ```{python}
 #| renderings: [light, dark]
-set_brand_theme('../united-brand.yml')
-show(p)
-
-set_brand_theme('../slate-brand.yml')
-show(p)
+show_light_dark(p)
 ```
 
 ## Explanation
