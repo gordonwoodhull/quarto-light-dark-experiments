@@ -12,6 +12,7 @@ execute:
 #| echo: false
 #| warning: false
 library(flextable)
+library(knitr)
 
 flextable_brand_theme <- function(brand_yml) {
   brand <- yaml::yaml.load_file(brand_yml)
@@ -27,6 +28,25 @@ flextable_brand_theme <- function(brand_yml) {
 }
 united_theme <- flextable_brand_theme('../united-brand.yml')
 slate_theme <- flextable_brand_theme('../slate-brand.yml')
+
+# gives me text output, also light should be themes[theme] but it said that wasn't function
+flextable_light_dark_init <- function(light, dark, default = light) {
+  themes <- list(light = light, dark = dark)
+  knit_print.flextable <- function(x, options, ...) {
+    if (is.null(options$renderings)) {
+      flextable:::print.flextable(default(x), ...)
+    } else {
+      for (theme in options$renderings) {
+        flextable:::print.flextable(themes[theme](x), ...)
+      }
+    }
+  }
+  registerS3method("knit_print", "flextable", knit_print.flextable)
+}
+
+flextable_light_dark_init(united_theme, slate_theme)
+
+
 ```
 
 ```{r}
@@ -42,9 +62,6 @@ ft <- add_footer_lines(ft, "Daily air quality measurements in New York, May to S
 ft <- color(ft, part = "footer", color = "#666666")
 ft <- set_caption(ft, caption = "New York Air Quality Measurements")
 
-ft <- united_theme(ft)
-ft
-ft <- slate_theme(ft)
 ft
 
 ```

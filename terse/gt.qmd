@@ -12,6 +12,7 @@ execute:
 #| echo: false
 #| warning: false
 library(gt)
+library(knitr)
 
 gt_brand <- function(brand_yml) {
   brand <- yaml::yaml.load_file(brand_yml)
@@ -25,6 +26,23 @@ gt_brand <- function(brand_yml) {
 }
 united_theme <- gt_brand('../united-brand.yml')
 slate_theme <- gt_brand('../slate-brand.yml')
+
+gt_light_dark_init <- function(light, dark, default = light) {
+  themes <- list(light = light, dark = dark)
+  knit_print.gt_tbl <- function(x, options, ...) {
+    if (is.null(options$renderings)) {
+      gt:::print.gt_tbl(x |> default(), ...)
+    } else {
+      for (theme in options$renderings) {
+        gt:::print.gt_tbl(x |> themes[theme](), ...)
+      }
+    }
+  }
+  registerS3method("knit_print", "gt_tbl", knit_print.gt_tbl)
+}
+
+
+gt_light_dark_init(united_theme, slate_theme)
 ```
 
 ```{r}
@@ -94,9 +112,7 @@ penguins_table <- penguin_counts_wider |>
   ) |>
   opt_stylize(style = 6, color = 'gray')
 
-penguins_table |> united_theme()
-
-penguins_table |> slate_theme()
+penguins_table
 ```
 
 Here's a [link](https://example.com).
