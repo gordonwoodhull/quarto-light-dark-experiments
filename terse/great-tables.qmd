@@ -21,6 +21,10 @@ def theme_options(brand_yml):
 
 united_theme = theme_options('../united-brand.yml')
 slate_theme = theme_options('../slate-brand.yml')
+
+def display_light_dark(gt):
+  display(gt.tab_options(**united_theme))
+  display(gt.tab_options(**slate_theme))
 ```
 
 
@@ -36,9 +40,7 @@ gt_ex = (
     .tab_source_note("THE SOURCE NOTE")
 )
 
-display(gt_ex.tab_options(**united_theme))
-
-display(gt_ex.tab_options(**slate_theme))
+display_light_dark(gt_ex)
 ```
 
 {{< lipsum 2 >}}
