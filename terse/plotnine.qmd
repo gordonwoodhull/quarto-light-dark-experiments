@@ -18,8 +18,10 @@ We'll create a violin plot to visualize the distribution of measurements across 
 ## Code and Explanation
 
 ```{python}
+#| echo: false
 import yaml
 from plotnine import *
+
 def load_brand_theme(brand_yml):
   brand = yaml.safe_load(open(brand_yml).read())
   return theme(
@@ -29,6 +31,11 @@ def load_brand_theme(brand_yml):
 
 theme_united = load_brand_theme('../united-brand.yml')
 theme_slate = load_brand_theme('../slate-brand.yml')
+
+def display_light_dark(plot):
+  display(plot + theme_united)
+  display(plot + theme_slate)
+
 ```
 
 ```{python}
@@ -51,10 +58,7 @@ plot = (ggplot(iris_df, aes(x='species', y='sepal length (cm)', fill='species'))
     + theme_minimal()
 )
 
-
-display(plot + theme_united)
-
-display(plot + theme_slate)
+display_light_dark(plot)
 ```
 
 This code:
