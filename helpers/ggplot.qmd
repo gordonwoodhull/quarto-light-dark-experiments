@@ -1,8 +1,8 @@
 ---
 title: "knitr dark mode - ggplot"
 brand:
-  light: united-brand.yml
-  dark: slate-brand.yml
+  light: ../united-brand.yml
+  dark: ../slate-brand.yml
 ---
 
 ```{r}
@@ -32,33 +32,21 @@ brand_ggplot <- function(brand_yml) {
   brand <- yaml::yaml.load_file(brand_yml)
   ggplot_theme(brand$color$background, brand$color$foreground)
 }
-
-darkmode_theme <- function(light, dark, default = light) {
-  themes <- list(light = light, dark = dark)
-  knit_print.ggplot <- function(x, options, ...) {
-    if (is.null(options$renderings)) {
-      ggplot2:::print.ggplot(x + default, ...)
-    } else {
-      for (theme in options$renderings) {
-        ggplot2:::print.ggplot(x + themes[theme], ...)
-      }
-    }
-    invisible(x)
-  }
-  registerS3method("knit_print", "ggplot", knit_print.ggplot)
-}
 ```
 
 ```{r}
 #| echo: false
 #| warning: false
-darkmode_theme(brand_ggplot("united-brand.yml"), brand_ggplot("slate-brand.yml"))
-colour_scale <- scale_colour_manual(values = c("darkorange", "purple", "cyan4"))
+united_theme <- brand_ggplot("../united-brand.yml")
+slate_theme <- brand_ggplot("../slate-brand.yml")
 ```
 
 ```{r}
 #| renderings: [light, dark]
-ggplot(mtcars, aes(mpg, wt)) +
+cars <- ggplot(mtcars, aes(mpg, wt)) +
   geom_point(aes(colour = factor(cyl))) +
-  colour_scale
+  scale_colour_manual(values = c("darkorange", "purple", "cyan4"))
+
+cars + united_theme
+cars + slate_theme
 ```
