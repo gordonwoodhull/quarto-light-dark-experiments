@@ -1,0 +1,152 @@
+---
+title: "Jupyter dark mode - Bokeh"
+author: "anthropic claude-3-5-sonnet-20240620"
+date: 2024-12-28 15:07:56.427818
+brand:
+  light: ../united-brand.yml
+  dark: ../slate-brand.yml
+---
+
+## Question
+
+Please draw a violin plot of the iris data using Bokeh.
+
+## Overview
+
+In this document, we'll create a violin plot of the Iris dataset using the Bokeh library in Python. A violin plot is an excellent way to visualize the distribution of numerical data across different categories. For the Iris dataset, we'll plot the distribution of sepal length for each species of iris.
+
+An amusing buggy plot by Claude.
+
+Sadly plotly's `figure.background_fill_color` does not seem to work.
+
+## Code
+
+```{python}
+#| echo: false
+import yaml
+from bokeh.io import curdoc
+from bokeh.themes import Theme
+
+def brand_theme(brand_yml):
+  brand = yaml.safe_load(open(brand_yml).read())
+  def apply():
+    fg = brand["color"]["foreground"]
+    bg = brand["color"]["background"]
+    curdoc().theme = Theme(json={'attrs': {
+      'figure': {
+        'background_fill_color': bg, # just plot area
+      },
+      'Title': {
+        'background_fill_color': bg,
+        'text_color': fg,
+      },
+      'Axis': {
+        'background_fill_color': bg,
+        'axis_label_text_color': fg,
+        'major_label_text_color': fg,
+      },
+    }})
+  return apply
+
+united_theme = brand_theme('../united-brand.yml')
+slate_theme = brand_theme('../slate-brand.yml')
+```
+
+```{python}
+#| echo: false
+#| renderings: [light, dark]
+import pandas as pd
+import numpy as np
+from bokeh.plotting import figure, show
+from bokeh.io import output_file
+from bokeh.models import ColumnDataSource, HoverTool
+from bokeh.palettes import Spectral3
+from bokeh.layouts import column
+from bokeh.io import output_notebook
+
+import re
+from IPython.display import display, Markdown
+
+
+# Load the Iris dataset
+from sklearn.datasets import load_iris
+iris = load_iris()
+df = pd.DataFrame(iris.data, columns=iris.feature_names)
+df['species'] = pd.Categorical.from_codes(iris.target, iris.target_names)
+
+# Prepare data for the violin plot
+cats = ['setosa', 'versicolor', 'virginica']
+palette = Spectral3
+
+# Create the violin plot
+p = figure(title="Violin Plot of Sepal Length by Iris Species", x_range=cats,
+           height=350, toolbar_location=None, tools="")
+
+# Compute the violin statistics
+for cat, color in zip(cats, palette):
+    subset = df[df['species'] == cat]['sepal length (cm)']
+
+    # Compute KDE
+    kde = np.histogram(subset, bins=20, density=True)
+    y = kde[1][:-1] + (kde[1][1] - kde[1][0])/2
+    x = kde[0]
+
+    # Scale the width of the violin plot
+    scaled_x = x / max(x) * 0.4
+
+    # Add the violin shape
+    p.patch(x=scaled_x + cats.index(cat), y=y, fill_color=color, line_color="black", alpha=0.6)
+    p.patch(x=-scaled_x + cats.index(cat), y=y, fill_color=color, line_color="black", alpha=0.6)
+
+# Customize the plot
+p.xgrid.grid_line_color = None
+p.y_range.start = 4
+p.y_range.end = 8
+p.xaxis.axis_label = "Species"
+p.yaxis.axis_label = "Sepal Length (cm)"
+
+# Show the plot
+output_notebook(hide_banner=True)
+
+united_theme()
+show(p)
+
+slate_theme()
+show(p)
+```
+
+Again!
+```{python}
+#| renderings: [light, dark]
+united_theme()
+show(p)
+
+slate_theme()
+show(p)
+```
+
+## Explanation
+
+This code creates a violin plot of the sepal length distribution for each species in the Iris dataset using Bokeh. Here's a breakdown of what the code does:
+
+1. We start by importing the necessary libraries, including Pandas for data manipulation, NumPy for numerical operations, and various Bokeh modules for plotting.
+
+2. We load the Iris dataset using scikit-learn's `load_iris()` function and convert it to a Pandas DataFrame for easy manipulation.
+
+3. We prepare the data for the violin plot by defining the categories (iris species) and choosing a color palette.
+
+4. We create a Bokeh figure with appropriate titles and labels.
+
+5. For each iris species, we:
+   - Subset the data for that species.
+   - Compute the kernel density estimation (KDE) using NumPy's histogram function.
+   - Scale the KDE to create the violin shape.
+   - Add the violin shape to the plot using Bokeh's `patch` method, creating a symmetrical violin by mirroring the shape.
+
+6. We customize the plot by removing the x-axis grid, setting the y-axis range, and adding axis labels.
+
+7. Finally, we display the plot using Bokeh's `show` function.
+
+The resulting violin plot will show the distribution of sepal lengths for each iris species. The width of each "violin" represents the frequency of data points at that y-value, giving us a clear visualization of the data distribution. This allows us to compare not just the central tendencies of each species' sepal length, but also the spread and shape of the distributions.
+
+This visualization can help us identify differences between the species. For example, we might see that one species has a broader distribution of sepal lengths, while another has a more concentrated distribution. We might also observe multimodal distributions or other interesting patterns that wouldn't be apparent from simple summary statistics.
