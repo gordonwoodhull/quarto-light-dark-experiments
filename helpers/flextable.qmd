@@ -42,11 +42,8 @@ ft <- add_footer_lines(ft, "Daily air quality measurements in New York, May to S
 ft <- color(ft, part = "footer", color = "#666666")
 ft <- set_caption(ft, caption = "New York Air Quality Measurements")
 
-ft <- united_theme(ft)
-ft
-ft <- slate_theme(ft)
-ft
-
+united_theme(ft)
+slate_theme(ft)
 ```
 
 Here's a [link](https://example.com).
