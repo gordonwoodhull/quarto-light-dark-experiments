@@ -30,11 +30,12 @@ slate_thematic = thematic_brand('../slate-brand.yml')
 
 ```{r}
 #| renderings: [light, dark]
+penguins <- ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
 united_thematic()
-ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
+penguins
 
 slate_thematic()
-ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
+penguins
 ```
 
 ## ggplot
@@ -45,11 +46,13 @@ ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_
 #| renderings:
 #|   - dark
 #|   - light
+penguins2 <- ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=flipper_length_mm)) + geom_point()
+
 slate_thematic()
-ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
+penguins2
 
 united_thematic()
-ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
+penguins2
 ```
 :::
 
@@ -61,14 +64,13 @@ ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_
 #| renderings: [light, dark]
 united_thematic()
 plot(
-    palmerpenguins::penguins$bill_length_mm,
-    palmerpenguins::penguins$bill_depth_mm,
+    palmerpenguins::penguins$flipper_length_mm,
+    palmerpenguins::penguins$body_mass_g,
 )
-
 slate_thematic()
 plot(
-    palmerpenguins::penguins$bill_length_mm,
-    palmerpenguins::penguins$bill_depth_mm,
+    palmerpenguins::penguins$flipper_length_mm,
+    palmerpenguins::penguins$body_mass_g,
 )
 ```
 
