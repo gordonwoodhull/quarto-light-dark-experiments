@@ -7,6 +7,7 @@ brand:
   light: ../united-brand.yml
   dark: ../slate-brand.yml
 keep-md: true
+ipynb-shell-interactivity: all
 ---
 
 ## Question
@@ -31,11 +32,6 @@ def load_brand_theme(brand_yml):
 
 theme_united = load_brand_theme('../united-brand.yml')
 theme_slate = load_brand_theme('../slate-brand.yml')
-
-def display_light_dark(plot):
-  display(plot + theme_united)
-  display(plot + theme_slate)
-
 ```
 
 ```{python}
@@ -58,7 +54,8 @@ plot = (ggplot(iris_df, aes(x='species', y='sepal length (cm)', fill='species'))
     + theme_minimal()
 )
 
-display_light_dark(plot)
+plot + theme_united
+plot + theme_slate
 ```
 
 This code:
