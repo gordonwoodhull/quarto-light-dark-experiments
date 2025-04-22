@@ -64,10 +64,10 @@ chart = alt.Chart(cars).mark_point().encode(
         color='Origin',
     ).properties(width=800, height=500).interactive()
 
-alt.themes.enable('united_theme')
+alt.theme.enable('united_theme')
 chart.show()
 
-alt.themes.enable('slate_theme')
+alt.theme.enable('slate_theme')
 chart.show()
 ```
 
@@ -86,10 +86,10 @@ chart = alt.Chart(cars).mark_point().encode(
         color='Origin',
     ).properties(width=800, height=500).interactive()
 
-alt.themes.enable('united_theme')
+alt.theme.enable('united_theme')
 chart.show()
 
-alt.themes.enable('slate_theme')
+alt.theme.enable('slate_theme')
 chart.show()
 ```
 
@@ -109,10 +109,10 @@ chart = alt.Chart(cars).mark_point().encode(
         color='Origin',
     ).properties(width=800, height=500).interactive()
 
-alt.themes.enable('united_theme')
+alt.theme.enable('united_theme')
 chart.show()
 
-alt.themes.enable('slate_theme')
+alt.theme.enable('slate_theme')
 chart.show()
 ```
 
@@ -134,10 +134,10 @@ chart = alt.Chart(cars).mark_point().encode(
         color='Origin',
     ).properties(width=800, height=500).interactive()
 
-alt.themes.enable('united_theme')
+alt.theme.enable('united_theme')
 chart.show()
 
-alt.themes.enable('slate_theme')
+alt.theme.enable('slate_theme')
 chart.show()
 ```
 
