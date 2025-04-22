@@ -33,14 +33,6 @@ def plotly_brand(brand_yml):
   }})
 pio.templates['united_brand'] = plotly_brand('../united-brand.yml')
 pio.templates['slate_brand'] = plotly_brand('../slate-brand.yml')
-
-def display_light_dark(plot):
-  plot.update_layout(template='united_brand')
-  display(plot)
-
-  plot.update_layout(template='slate_brand')
-  display(plot)
-
 ```
 
 ```{python}
@@ -65,7 +57,11 @@ plot = px.violin(iris_df, x='species', y='sepal length (cm)', box=True, points="
                 title='Violin Plot of Sepal Length in Iris Dataset')
 
 
-display_light_dark(plot)
+plot.update_layout(template='united_brand')
+display(plot)
+
+plot.update_layout(template='slate_brand')
+display(plot)
 ```
 
 Again!
@@ -74,7 +70,11 @@ Again!
 ```{python}
 #| echo: false
 #| renderings: [light, dark]
-display_light_dark(plot)
+plot.update_layout(template='united_brand')
+display(plot)
+
+plot.update_layout(template='slate_brand')
+display(plot)
 ```
 
 
