@@ -27,30 +27,35 @@ import yaml
 from bokeh.io import curdoc
 from bokeh.themes import Theme
 
-def set_brand_theme(brand_yml):
+def brand_theme(brand_yml):
   brand = yaml.safe_load(open(brand_yml).read())
-  fg = brand["color"]["foreground"]
-  bg = brand["color"]["background"]
-  curdoc().theme = Theme(json={'attrs': {
-    'figure': {
-      'background_fill_color': bg, # just plot area
-    },
-    'Title': {
-      'background_fill_color': bg,
-      'text_color': fg,
-    },
-    'Axis': {
-      'background_fill_color': bg,
-      'axis_label_text_color': fg,
-      'major_label_text_color': fg,
-    },
-  }})
+  def apply():
+    fg = brand["color"]["foreground"]
+    bg = brand["color"]["background"]
+    curdoc().theme = Theme(json={'attrs': {
+      'figure': {
+        'background_fill_color': bg, # just plot area
+      },
+      'Title': {
+        'background_fill_color': bg,
+        'text_color': fg,
+      },
+      'Axis': {
+        'background_fill_color': bg,
+        'axis_label_text_color': fg,
+        'major_label_text_color': fg,
+      },
+    }})
+  return apply
+
+united_theme = brand_theme('../united-brand.yml')
+slate_theme = brand_theme('../slate-brand.yml')
 
 def show_light_dark(plot):
-  set_brand_theme('../united-brand.yml')
+  united_theme()
   show(plot)
 
-  set_brand_theme('../slate-brand.yml')
+  slate_theme()
   show(plot)
 ```
 
