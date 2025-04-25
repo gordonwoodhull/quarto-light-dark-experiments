@@ -11,17 +11,20 @@ ipynb-shell-interactivity: all
 ```{python}
 #| echo: false
 import yaml
-def theme_options(brand_yml):
-  brand = yaml.safe_load(open(brand_yml).read())
-  fg = brand["color"]["foreground"]
-  bg = brand["color"]["background"]
+
+def great_tables_theme_colors(bg, fg):
   return {
     'table_background_color': bg,
     'table_font_color': fg
   }
+def great_tables_theme_brand(brand_yml):
+  brand = yaml.safe_load(open(brand_yml).read())
+  fg = brand["color"]["foreground"]
+  bg = brand["color"]["background"]
+  return great_tables_theme_colors(bg, fg)
 
-united_theme = theme_options('../united-brand.yml')
-slate_theme = theme_options('../slate-brand.yml')
+united_theme = great_tables_theme_brand('../united-brand.yml')
+slate_theme = great_tables_theme_brand('../slate-brand.yml')
 ```
 
 

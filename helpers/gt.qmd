@@ -13,18 +13,22 @@ execute:
 #| warning: false
 library(gt)
 
-gt_brand <- function(brand_yml) {
-  brand <- yaml::yaml.load_file(brand_yml)
-  return (function(table)
+gt_theme_colors <- function(bg, fg)
+  (function(table)
     table |>
     tab_options(
-      table.background.color=brand$color$background,
-      table.font.color=brand$color$foreground,
+      table.background.color=bg,
+      table.font.color=fg,
     )
   )
+
+
+gt_theme_brand <- function(brand_yml) {
+  brand <- yaml::yaml.load_file(brand_yml)
+  gt_theme_colors(brand$color$background, brand$color$foreground)
 }
-united_theme <- gt_brand('../united-brand.yml')
-slate_theme <- gt_brand('../slate-brand.yml')
+united_theme <- gt_theme_brand('../united-brand.yml')
+slate_theme <- gt_theme_brand('../slate-brand.yml')
 ```
 
 ```{r}

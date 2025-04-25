@@ -11,18 +11,9 @@ execute:
 ```{r}
 #| echo: false
 #| warning: false
-library(plotly)
-
-plotly_brand <- function(brand_yml) {
-  brand <- yaml::yaml.load_file(brand_yml)
-  return (function(plot)
-    plot |> layout(paper_bgcolor = brand$color$background,
-      plot_bgcolor = brand$color$background,
-      font = list(color = brand$color$foreground)
-  ))
-}
-united_theme <- plotly_brand('../united-brand.yml')
-slate_theme <- plotly_brand('../slate-brand.yml')
+source('plotly-helpers.R')
+united_theme <- plotly_theme_brand('../united-brand.yml')
+slate_theme <- plotly_theme_brand('../slate-brand.yml')
 ```
 
 ### no caption or crossref
