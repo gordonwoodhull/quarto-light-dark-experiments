@@ -21,25 +21,29 @@ We'll create a violin plot to visualize the distribution of measurements across 
 ```{python}
 #| echo: false
 import yaml
-from plotnine import *
+from plotnine import theme, element_rect, element_text
 
-def load_brand_theme(brand_yml):
-  brand = yaml.safe_load(open(brand_yml).read())
+def plotnine_theme_colors(bg, fg):
   return theme(
-    plot_background=element_rect(fill=brand["color"]["background"], size=0),
-    text=element_text(color=brand["color"]["foreground"])
+    plot_background=element_rect(fill=bg, size=0),
+    text=element_text(color=fg)
   )
 
-theme_united = load_brand_theme('../united-brand.yml')
-theme_slate = load_brand_theme('../slate-brand.yml')
+def plotnine_theme_brand(brand_yml):
+  brand = yaml.safe_load(open(brand_yml).read())
+  return plotnine_theme_colors(brand["color"]["background"], brand["color"]["foreground"])
+```
+
+```{python}
+theme_united = plotnine_theme_brand('../united-brand.yml')
+theme_slate = plotnine_theme_brand('../slate-brand.yml')
 ```
 
 ```{python}
 #| renderings: [light, dark]
+from plotnine import *
 import pandas as pd
 from sklearn.datasets import load_iris
-
-
 
 # Load the iris dataset
 iris = load_iris()

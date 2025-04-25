@@ -11,23 +11,31 @@ keep-md: true
 import yaml
 from pygal.style import Style
 
-def pygal_brand_style(brand_yml):
-  brand = yaml.safe_load(open(brand_yml).read())
-  bg = brand["color"]["background"]
-  fg = brand["color"]["foreground"]
+def pygal_theme_colors(_bg, fg, primary, secondary):
   return Style(
     background='transparent',
     plot_background='transparent',
     foreground=fg,
-    foreground_strong=brand["color"]["primary"],
-    foreground_subtle=brand["color"].get("secondary") or '#630C0D',
+    foreground_strong=primary,
+    foreground_subtle=secondary or '#630C0D',
     opacity='.6',
     opacity_hover='.9',
     transition='400ms ease-in',
     colors=('#E853A0', '#E8537A', '#E95355', '#E87653', '#E89B53'))
 
-united_style = pygal_brand_style('../united-brand.yml')
-slate_style = pygal_brand_style('../slate-brand.yml')
+def pygal_theme_brand(brand_yml):
+  brand = yaml.safe_load(open(brand_yml).read())
+  return pygal_theme_colors(
+    brand["color"]["background"],
+    brand["color"]["foreground"],
+    brand["color"]["primary"],
+    brand["color"].get("secondary"),
+  )
+```
+
+```{python}
+united_style = pygal_theme_brand('../united-brand.yml')
+slate_style = pygal_theme_brand('../slate-brand.yml')
 ```
 
 ```{python}

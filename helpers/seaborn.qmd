@@ -26,25 +26,29 @@ Below is a complete example to create a violin plot for the Iris dataset using S
 ```{python}
 #| echo: false
 import yaml
+def seaborn_theme_colors(bg, fg):
+  # seaborn accepts matplotlib rcparams
+  return {
+      "axes.facecolor": bg,
+      "axes.edgecolor": fg,
+      "axes.labelcolor": fg,
+      "axes.titlecolor": fg,
+      "figure.facecolor": bg,
+      "figure.edgecolor": fg,
+      "text.color": fg,
+      "xtick.color": fg,
+      "ytick.color": fg,
+      "grid.color": fg,
+  }
 
-def seaborn_params_from_brand(brand_yml):
+def seaborn_theme_brand(brand_yml):
     brand = yaml.safe_load(open(brand_yml).read())
-    # seaborn accepts valid matplotlib rcparams
-    return {
-        "axes.facecolor": brand["color"]["background"],
-        "axes.edgecolor": brand["color"]["foreground"],
-        "axes.labelcolor": brand["color"]["foreground"],
-        "axes.titlecolor": brand["color"]["foreground"],
-        "figure.facecolor": brand["color"]["background"],
-        "figure.edgecolor": brand["color"]["foreground"],
-        "text.color": brand["color"]["foreground"],
-        "xtick.color": brand["color"]["foreground"],
-        "ytick.color": brand["color"]["foreground"],
-        "grid.color": brand["color"]["foreground"],
-    }
+    return seaborn_theme_colors(brand["color"]["background"], brand["color"]["foreground"])
+```
 
-united_params = seaborn_params_from_brand("../united-brand.yml")
-slate_params = seaborn_params_from_brand("../slate-brand.yml")
+```{python}
+united_params = seaborn_theme_brand("../united-brand.yml")
+slate_params = seaborn_theme_brand("../slate-brand.yml")
 ```
 
 
