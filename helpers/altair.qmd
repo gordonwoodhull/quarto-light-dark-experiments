@@ -15,30 +15,33 @@ import yaml
 from functools import partial
 import altair as alt
 
-def brand_theme(brand_yml) -> alt.theme.ThemeConfig:
-    brand = yaml.safe_load(open(brand_yml).read())
-    fg = brand["color"]["foreground"]
-    bg = brand["color"]["background"]
-    def theme_fn():
-        return {
-            'config': {
-                'view': {'stroke': 'transparent'},
-                'axis': {
-                    'domainColor': fg,
-                    'labelColor': fg,
-                    'titleColor': fg,
-                },
-                'legend': {
-                    'labelColor': fg,
-                    'titleColor': fg,
-                },
-                'background': bg,  # Background color
-            }
-        }
-    return theme_fn
+def altair_theme_colors(bg, fg):
+  return {
+    'config': {
+      'view': {'stroke': 'transparent'},
+      'axis': {
+        'domainColor': fg,
+        'labelColor': fg,
+        'titleColor': fg,
+      },
+      'legend': {
+        'labelColor': fg,
+        'titleColor': fg,
+      },
+      'background': bg,  # Background color
+    }
+  }
 
-united_theme = brand_theme('../united-brand.yml')
-slate_theme = brand_theme('../slate-brand.yml')
+def altair_theme_brand(brand_yml) -> alt.theme.ThemeConfig:
+    brand = yaml.safe_load(open(brand_yml).read())
+    bg = brand["color"]["background"]
+    fg = brand["color"]["foreground"]
+    return partial(altair_theme_colors, bg, fg)
+```
+
+```{python}
+united_theme = altair_theme_brand('../united-brand.yml')
+slate_theme = altair_theme_brand('../slate-brand.yml')
 alt.themes.register('united_theme', united_theme)
 alt.themes.register('slate_theme', slate_theme);
 ```
