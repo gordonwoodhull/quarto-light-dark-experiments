@@ -12,20 +12,8 @@ execute:
 #| echo: false
 #| warning: false
 library(ggplot2)
+library(quarto)
 
-thematic_theme_colors <- function(bg, fg)
-  (function() {
-    thematic::thematic_rmd(
-      bg=bg,
-      fg=fg,
-  )})
-thematic_theme_brand <- function(brand_yml) {
-  brand <- yaml::yaml.load_file(brand_yml)
-  thematic_theme_colors(brand$color$background, brand$color$foreground)
-}
-```
-
-```{r}
 united_thematic = thematic_theme_brand('../united-brand.yml')
 slate_thematic = thematic_theme_brand('../slate-brand.yml')
 ```
