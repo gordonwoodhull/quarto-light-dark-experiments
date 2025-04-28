@@ -11,7 +11,9 @@ execute:
 ```{r}
 #| echo: false
 #| warning: false
-source('plotly-helpers.R')
+library(quarto)
+library(plotly)
+
 united_theme <- plotly_theme_brand('../united-brand.yml')
 slate_theme <- plotly_theme_brand('../slate-brand.yml')
 ```
@@ -28,10 +30,6 @@ fig <- plot_ly(iris, x = ~Species, y = ~Sepal.Width, type = 'violin',
 fig |> united_theme()
 
 fig |> slate_theme()
-
-
-# Load the iris dataset
-data("iris")
 ```
 
 

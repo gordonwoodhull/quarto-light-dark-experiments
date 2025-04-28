@@ -8,7 +8,8 @@ brand:
 ```{r}
 #| echo: false
 #| warning: false
-source('plotly-helpers.R')
+library(heatmaply)
+library(quarto)
 
 united_theme <- plotly_theme_brand('../united-brand.yml')
 slate_theme <- plotly_theme_brand('../slate-brand.yml')
@@ -19,7 +20,6 @@ slate_theme <- plotly_theme_brand('../slate-brand.yml')
 #| warning: false
 #| renderings: [light, dark]
 
-library(heatmaply)
 fig <- heatmaply(mtcars, k_row = 3, k_col = 2)
 
 fig |> united_theme()
