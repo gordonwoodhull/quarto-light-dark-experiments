@@ -9,34 +9,10 @@ keep-md: true
 
 ```{python}
 #| echo: false
-import yaml
-import tempfile
-import os
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-from cycler import cycler
-from functools import partial
+from quarto import matplotlib_theme_brand
 
-def mplstyle_from_brand(brand):
-    mpl.rcParams["axes.facecolor"] = brand["color"]["background"]
-    mpl.rcParams["axes.edgecolor"] = brand["color"]["foreground"]
-    mpl.rcParams["axes.labelcolor"] = brand["color"]["foreground"]
-    mpl.rcParams["axes.titlecolor"] = brand["color"]["foreground"]
-    mpl.rcParams["figure.facecolor"] = brand["color"]["background"]
-    mpl.rcParams["figure.edgecolor"] = brand["color"]["foreground"]
-    mpl.rcParams["text.color"] = brand["color"]["foreground"]
-    mpl.rcParams["xtick.color"] = brand["color"]["foreground"]
-    mpl.rcParams["ytick.color"] = brand["color"]["foreground"]
-    mpl.rcParams["axes.prop_cycle"] = cycler('color', [brand["color"]["primary"]])
-
-
-def mplstyle_from_brand_file(brand_filename):
-    with open(brand_filename) as brand_file:
-        brand = yaml.safe_load(brand_file.read())
-        return partial(mplstyle_from_brand, brand)
-
-united_style = mplstyle_from_brand_file("../united-brand.yml")
-slate_style = mplstyle_from_brand_file("../slate-brand.yml")
+united_style = matplotlib_theme_brand("../united-brand.yml")
+slate_style = matplotlib_theme_brand("../slate-brand.yml")
 
 ```
 

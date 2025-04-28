@@ -23,36 +23,8 @@ Sadly plotly's `figure.background_fill_color` does not seem to work.
 
 ```{python}
 #| echo: false
-import yaml
-from bokeh.io import curdoc
-from bokeh.themes import Theme
-from functools import partial
+from quarto import bokeh_theme_brand
 
-
-def bokeh_theme_colors(bg, fg):
-  curdoc().theme = Theme(json={'attrs': {
-    'figure': {
-      'background_fill_color': bg, # just plot area
-    },
-    'Title': {
-      'background_fill_color': bg,
-      'text_color': fg,
-    },
-    'Axis': {
-      'background_fill_color': bg,
-      'axis_label_text_color': fg,
-      'major_label_text_color': fg,
-    },
-  }})
-
-def bokeh_theme_brand(brand_yml):
-  brand = yaml.safe_load(open(brand_yml).read())
-  fg = brand["color"]["foreground"]
-  bg = brand["color"]["background"]
-  return partial(bokeh_theme_colors, bg, fg)
-```
-
-```{python}
 united_theme = bokeh_theme_brand('../united-brand.yml')
 slate_theme = bokeh_theme_brand('../slate-brand.yml')
 ```

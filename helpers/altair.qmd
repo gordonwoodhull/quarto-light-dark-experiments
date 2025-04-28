@@ -15,7 +15,6 @@ import altair as alt
 united_theme = altair_theme_brand('../united-brand.yml')
 slate_theme = altair_theme_brand('../slate-brand.yml')
 
-# is there a better way to do this?
 alt.theme.register('united_theme', enable=False)(united_theme)
 alt.theme.register('slate_theme', enable=False)(slate_theme);
 ```

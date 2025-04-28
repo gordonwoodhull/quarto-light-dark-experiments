@@ -24,29 +24,8 @@ Follow these simple steps to draw a violin plot using Seaborn:
 Below is a complete example to create a violin plot for the Iris dataset using Seaborn:
 
 ```{python}
-#| echo: false
-import yaml
-def seaborn_theme_colors(bg, fg):
-  # seaborn accepts matplotlib rcparams
-  return {
-      "axes.facecolor": bg,
-      "axes.edgecolor": fg,
-      "axes.labelcolor": fg,
-      "axes.titlecolor": fg,
-      "figure.facecolor": bg,
-      "figure.edgecolor": fg,
-      "text.color": fg,
-      "xtick.color": fg,
-      "ytick.color": fg,
-      "grid.color": fg,
-  }
+from quarto import seaborn_theme_brand
 
-def seaborn_theme_brand(brand_yml):
-    brand = yaml.safe_load(open(brand_yml).read())
-    return seaborn_theme_colors(brand["color"]["background"], brand["color"]["foreground"])
-```
-
-```{python}
 united_params = seaborn_theme_brand("../united-brand.yml")
 slate_params = seaborn_theme_brand("../slate-brand.yml")
 ```
