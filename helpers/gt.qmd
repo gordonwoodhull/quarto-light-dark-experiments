@@ -12,21 +12,8 @@ execute:
 #| echo: false
 #| warning: false
 library(gt)
+library(quarto)
 
-gt_theme_colors <- function(bg, fg)
-  (function(table)
-    table |>
-    tab_options(
-      table.background.color=bg,
-      table.font.color=fg,
-    )
-  )
-
-
-gt_theme_brand <- function(brand_yml) {
-  brand <- yaml::yaml.load_file(brand_yml)
-  gt_theme_colors(brand$color$background, brand$color$foreground)
-}
 united_theme <- gt_theme_brand('../united-brand.yml')
 slate_theme <- gt_theme_brand('../slate-brand.yml')
 ```

@@ -8,13 +8,10 @@ brand:
 ```{r}
 #| echo: false
 #| warning: false
-source('ggplot-helpers.R')
-```
-
-```{r}
-#| echo: false
-#| warning: false
+library(quarto)
+library(ggplot2)
 library(ggiraph)
+
 united_theme <- ggplot_theme_brand("../united-brand.yml")
 slate_theme <- ggplot_theme_brand("../slate-brand.yml")
 ```

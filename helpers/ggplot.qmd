@@ -4,16 +4,14 @@ brand:
   light: ../united-brand.yml
   dark: ../slate-brand.yml
 ---
+``
 
 ```{r}
 #| echo: false
 #| warning: false
-source('ggplot-helpers.R')
-```
+library(quarto)
+library(ggplot2)
 
-```{r}
-#| echo: false
-#| warning: false
 united_theme <- ggplot_theme_brand("../united-brand.yml")
 slate_theme <- ggplot_theme_brand("../slate-brand.yml")
 ```
