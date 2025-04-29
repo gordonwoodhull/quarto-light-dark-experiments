@@ -9,11 +9,10 @@ keep-md: true
 
 ```{python}
 #| echo: false
-from quarto import matplotlib_theme_brand
+from quarto import theme_brand_matplotlib
 
-united_style = matplotlib_theme_brand("../united-brand.yml")
-slate_style = matplotlib_theme_brand("../slate-brand.yml")
-
+united_style = theme_brand_matplotlib("../united-brand.yml")
+slate_style = theme_brand_matplotlib("../slate-brand.yml")
 ```
 
 ### No crossref or caption

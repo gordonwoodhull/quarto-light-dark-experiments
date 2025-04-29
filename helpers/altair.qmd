@@ -9,11 +9,11 @@ keep-md: true
 
 
 ```{python}
-from quarto import altair_theme_brand
+from quarto import theme_brand_altair
 import altair as alt
 
-united_theme = altair_theme_brand('../united-brand.yml')
-slate_theme = altair_theme_brand('../slate-brand.yml')
+united_theme = theme_brand_altair('../united-brand.yml')
+slate_theme = theme_brand_altair('../slate-brand.yml')
 
 alt.theme.register('united_theme', enable=False)(united_theme)
 alt.theme.register('slate_theme', enable=False)(slate_theme);

@@ -23,10 +23,10 @@ Sadly plotly's `figure.background_fill_color` does not seem to work.
 
 ```{python}
 #| echo: false
-from quarto import bokeh_theme_brand
+from quarto import theme_brand_bokeh
 
-united_theme = bokeh_theme_brand('../united-brand.yml')
-slate_theme = bokeh_theme_brand('../slate-brand.yml')
+united_theme = theme_brand_bokeh('../united-brand.yml')
+slate_theme = theme_brand_bokeh('../slate-brand.yml')
 ```
 
 ```{python}

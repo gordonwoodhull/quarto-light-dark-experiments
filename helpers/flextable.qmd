@@ -14,8 +14,8 @@ execute:
 library(flextable)
 library(quarto)
 
-united_theme <- flextable_theme_brand('../united-brand.yml')
-slate_theme <- flextable_theme_brand('../slate-brand.yml')
+united_theme <- theme_brand_flextable('../united-brand.yml')
+slate_theme <- theme_brand_flextable('../slate-brand.yml')
 ```
 
 ```{r}

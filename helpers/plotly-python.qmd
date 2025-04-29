@@ -19,10 +19,10 @@ Plotly is an interactive plotting library that is ideal for creating detailed in
 
 ```{python}
 #| echo: false
-from quarto import plotly_theme_brand
+from quarto import theme_brand_plotly
 import plotly.io as pio
-pio.templates['united_brand'] = plotly_theme_brand('../united-brand.yml')
-pio.templates['slate_brand'] = plotly_theme_brand('../slate-brand.yml')
+pio.templates['united_brand'] = theme_brand_plotly('../united-brand.yml')
+pio.templates['slate_brand'] = theme_brand_plotly('../slate-brand.yml')
 ```
 
 ```{python}

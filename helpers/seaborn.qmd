@@ -24,10 +24,10 @@ Follow these simple steps to draw a violin plot using Seaborn:
 Below is a complete example to create a violin plot for the Iris dataset using Seaborn:
 
 ```{python}
-from quarto import seaborn_theme_brand
+from quarto import theme_brand_seaborn
 
-united_params = seaborn_theme_brand("../united-brand.yml")
-slate_params = seaborn_theme_brand("../slate-brand.yml")
+united_params = theme_brand_seaborn("../united-brand.yml")
+slate_params = theme_brand_seaborn("../slate-brand.yml")
 ```
 
 

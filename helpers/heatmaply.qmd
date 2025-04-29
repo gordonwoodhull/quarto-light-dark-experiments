@@ -11,8 +11,8 @@ brand:
 library(heatmaply)
 library(quarto)
 
-united_theme <- plotly_theme_brand('../united-brand.yml')
-slate_theme <- plotly_theme_brand('../slate-brand.yml')
+united_theme <- theme_brand_plotly('../united-brand.yml')
+slate_theme <- theme_brand_plotly('../slate-brand.yml')
 ```
 
 

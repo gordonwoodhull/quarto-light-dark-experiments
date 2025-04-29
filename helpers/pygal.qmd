@@ -8,10 +8,10 @@ keep-md: true
 ---
 
 ```{python}
-from quarto import pygal_theme_brand
+from quarto import theme_brand_pygal
 
-united_style = pygal_theme_brand('../united-brand.yml')
-slate_style = pygal_theme_brand('../slate-brand.yml')
+united_style = theme_brand_pygal('../united-brand.yml')
+slate_style = theme_brand_pygal('../slate-brand.yml')
 ```
 
 ```{python}

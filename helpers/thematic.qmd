@@ -14,8 +14,8 @@ execute:
 library(ggplot2)
 library(quarto)
 
-united_thematic = thematic_theme_brand('../united-brand.yml')
-slate_thematic = thematic_theme_brand('../slate-brand.yml')
+united_thematic = theme_brand_thematic('../united-brand.yml')
+slate_thematic = theme_brand_thematic('../slate-brand.yml')
 ```
 
 

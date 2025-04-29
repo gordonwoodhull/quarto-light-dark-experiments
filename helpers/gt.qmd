@@ -14,8 +14,8 @@ execute:
 library(gt)
 library(quarto)
 
-united_theme <- gt_theme_brand('../united-brand.yml')
-slate_theme <- gt_theme_brand('../slate-brand.yml')
+united_theme <- theme_brand_gt('../united-brand.yml')
+slate_theme <- theme_brand_gt('../slate-brand.yml')
 ```
 
 ```{r}

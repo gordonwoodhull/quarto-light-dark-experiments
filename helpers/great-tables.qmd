@@ -11,11 +11,11 @@ ipynb-shell-interactivity: all
 ```{python}
 #| echo: false
 import yaml
-from quarto import great_tables_theme_brand
+from quarto import theme_brand_great_tables
 
 
-united_theme = great_tables_theme_brand('../united-brand.yml')
-slate_theme = great_tables_theme_brand('../slate-brand.yml')
+united_theme = theme_brand_great_tables('../united-brand.yml')
+slate_theme = theme_brand_great_tables('../slate-brand.yml')
 ```
 
 
