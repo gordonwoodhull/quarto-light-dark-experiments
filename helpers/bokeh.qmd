@@ -1,7 +1,7 @@
 ---
 title: "Jupyter dark mode - Bokeh"
-author: "anthropic claude-3-5-sonnet-20240620"
-date: 2024-12-28 15:07:56.427818
+author: "anthropic claude-3-5-sonnet-latest"
+date: 2025-01-06
 brand:
   light: ../united-brand.yml
   dark: ../slate-brand.yml
@@ -9,15 +9,11 @@ brand:
 
 ## Question
 
-Please draw a violin plot of the iris data using Bokeh.
+How can we create a working scatter plot matrix (SPLOM) of the iris dataset using Bokeh?
 
 ## Overview
 
-In this document, we'll create a violin plot of the Iris dataset using the Bokeh library in Python. A violin plot is an excellent way to visualize the distribution of numerical data across different categories. For the Iris dataset, we'll plot the distribution of sepal length for each species of iris.
-
-An amusing buggy plot by Claude.
-
-Sadly plotly's `figure.background_fill_color` does not seem to work.
+We’ll create an interactive scatter plot matrix visualization of the iris dataset using Bokeh, with correct color mapping for different species.
 
 ## Code
 
@@ -25,81 +21,97 @@ Sadly plotly's `figure.background_fill_color` does not seem to work.
 #| echo: false
 from quarto import theme_brand_bokeh
 
-united_theme = theme_brand_bokeh('../united-brand.yml')
-slate_theme = theme_brand_bokeh('../slate-brand.yml')
+light_theme = theme_brand_bokeh('../united-brand.yml')
+dark_theme = theme_brand_bokeh('../slate-brand.yml')
 ```
 
 ```{python}
 #| echo: false
 #| renderings: [light, dark]
-import pandas as pd
-import numpy as np
 from bokeh.plotting import figure, show
-from bokeh.io import output_file
-from bokeh.models import ColumnDataSource, HoverTool
-from bokeh.palettes import Spectral3
-from bokeh.layouts import column
+from bokeh.layouts import gridplot
 from bokeh.io import output_notebook
+from bokeh.sampledata.iris import flowers
+from bokeh.models import ColumnDataSource, ColorBar
+from bokeh.transform import factor_cmap
 
-import re
-from IPython.display import display, Markdown
-
-
-# Load the Iris dataset
-from sklearn.datasets import load_iris
-iris = load_iris()
-df = pd.DataFrame(iris.data, columns=iris.feature_names)
-df['species'] = pd.Categorical.from_codes(iris.target, iris.target_names)
-
-# Prepare data for the violin plot
-cats = ['setosa', 'versicolor', 'virginica']
-palette = Spectral3
-
-# Create the violin plot
-p = figure(title="Violin Plot of Sepal Length by Iris Species", x_range=cats,
-           height=350, toolbar_location=None, tools="")
-
-# Compute the violin statistics
-for cat, color in zip(cats, palette):
-    subset = df[df['species'] == cat]['sepal length (cm)']
-
-    # Compute KDE
-    kde = np.histogram(subset, bins=20, density=True)
-    y = kde[1][:-1] + (kde[1][1] - kde[1][0])/2
-    x = kde[0]
-
-    # Scale the width of the violin plot
-    scaled_x = x / max(x) * 0.4
-
-    # Add the violin shape
-    p.patch(x=scaled_x + cats.index(cat), y=y, fill_color=color, line_color="black", alpha=0.6)
-    p.patch(x=-scaled_x + cats.index(cat), y=y, fill_color=color, line_color="black", alpha=0.6)
-
-# Customize the plot
-p.xgrid.grid_line_color = None
-p.y_range.start = 4
-p.y_range.end = 8
-p.xaxis.axis_label = "Species"
-p.yaxis.axis_label = "Sepal Length (cm)"
-
-# Show the plot
+# Enable notebook output; hiding banner helps the first plot
+# with issue described below
 output_notebook(hide_banner=True)
 
-united_theme()
-show(p)
+# Create ColumnDataSource for the data
+source = ColumnDataSource(flowers)
 
-slate_theme()
-show(p)
+# Define the features we want to plot
+features = ['petal_length', 'petal_width', 'sepal_length', 'sepal_width']
+
+# Create color mapper
+color_mapper = factor_cmap('species',
+                         ['#1f77b4', '#ff7f0e', '#2ca02c'],
+                         ['setosa', 'versicolor', 'virginica'])
+
+# Create the plots matrix
+plots = []
+tooltips = [
+    ('Species', '@species'),
+    ('Value', '$data_x, $data_y')
+]
+
+for i, y in enumerate(features):
+    row = []
+    for x in features:
+        plot = figure(width=200, height=200,
+                     tooltips=tooltips,
+                     title="" if x != features[0] or i != 0 else "Iris SPLOM")
+
+        # Add scatter points with proper color mapping
+        plot.scatter(x, y,
+                    color=color_mapper,
+                    size=8,
+                    alpha=0.5,
+                    legend_field='species',
+                    source=source)
+
+        # Configure axes
+        if i != len(features)-1:
+            plot.xaxis.visible = False
+        else:
+            plot.xaxis.axis_label = x
+
+        if x != features[0]:
+            plot.yaxis.visible = False
+        else:
+            plot.yaxis.axis_label = y
+
+        # Show legend only on top-right plot
+        if i != 0 or x != features[-1]:
+            plot.legend.visible = False
+        else:
+            plot.legend.click_policy = "hide"
+
+        plot.grid.grid_line_color = None
+        row.append(plot)
+    plots.append(row)
+
+# Create and show the grid
+grid = gridplot(plots)
+
+light_theme()
+show(grid)
+
+dark_theme()
+show(grid)
 ```
 
-Again!
+Bokeh has issues with emitting extra outputs. Quarto is partly fixing this up but the second plot will currently not work with `renderings`:
+
 ```{python}
 #| renderings: [light, dark]
-united_theme()
-show(p)
+light_theme()
+show(grid)
 
-slate_theme()
-show(p)
+dark_theme()
+show(grid)
 ```
 
 ## Explanation
