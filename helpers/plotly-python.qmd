@@ -56,7 +56,6 @@ display(plot)
 
 Again!
 
-
 ```{python}
 #| echo: false
 #| renderings: [light, dark]
@@ -66,7 +65,5 @@ display(plot)
 plot.update_layout(template='slate_brand')
 display(plot)
 ```
-
-
 
 This code uses `plotly.express` to create a violin plot of the sepal length by species from the Iris dataset. The `sepal length (cm)` is plotted on the Y-axis, with each species on the X-axis. The violin plot provides insights into the distribution of sepal length measurements within each species, along with a box plot overlay and individual measurements as jittered points for detailed data analysis.

@@ -14,8 +14,8 @@ import yaml
 from quarto import theme_brand_great_tables
 
 
-united_theme = theme_brand_great_tables('../united-brand.yml')
-slate_theme = theme_brand_great_tables('../slate-brand.yml')
+light_theme = theme_brand_great_tables('../united-brand.yml')
+dark_theme = theme_brand_great_tables('../slate-brand.yml')
 ```
 
 
@@ -31,8 +31,8 @@ gt_ex = (
     .tab_source_note("THE SOURCE NOTE")
 )
 
-gt_ex.tab_options(**united_theme)
-gt_ex.tab_options(**slate_theme)
+gt_ex.tab_options(**light_theme)
+gt_ex.tab_options(**dark_theme)
 ```
 
 {{< lipsum 2 >}}

@@ -12,11 +12,11 @@ keep-md: true
 from quarto import theme_brand_altair
 import altair as alt
 
-united_theme = theme_brand_altair('../united-brand.yml')
-slate_theme = theme_brand_altair('../slate-brand.yml')
+light_theme = theme_brand_altair('../united-brand.yml')
+dark_theme = theme_brand_altair('../slate-brand.yml')
 
-alt.theme.register('united_theme', enable=False)(united_theme)
-alt.theme.register('slate_theme', enable=False)(slate_theme);
+alt.theme.register('light_theme', enable=False)(light_theme)
+alt.theme.register('dark_theme', enable=False)(dark_theme);
 ```
 
 ```{python}
@@ -40,10 +40,10 @@ chart = alt.Chart(cars).mark_point().encode(
         color='Origin',
     ).properties(width=800, height=500).interactive()
 
-alt.theme.enable('united_theme')
+alt.theme.enable('light_theme')
 chart.show()
 
-alt.theme.enable('slate_theme')
+alt.theme.enable('dark_theme')
 chart.show()
 ```
 
@@ -62,10 +62,10 @@ chart = alt.Chart(cars).mark_point().encode(
         color='Origin',
     ).properties(width=800, height=500).interactive()
 
-alt.theme.enable('united_theme')
+alt.theme.enable('light_theme')
 chart.show()
 
-alt.theme.enable('slate_theme')
+alt.theme.enable('dark_theme')
 chart.show()
 ```
 
@@ -85,10 +85,10 @@ chart = alt.Chart(cars).mark_point().encode(
         color='Origin',
     ).properties(width=800, height=500).interactive()
 
-alt.theme.enable('united_theme')
+alt.theme.enable('light_theme')
 chart.show()
 
-alt.theme.enable('slate_theme')
+alt.theme.enable('dark_theme')
 chart.show()
 ```
 
@@ -110,10 +110,10 @@ chart = alt.Chart(cars).mark_point().encode(
         color='Origin',
     ).properties(width=800, height=500).interactive()
 
-alt.theme.enable('united_theme')
+alt.theme.enable('light_theme')
 chart.show()
 
-alt.theme.enable('slate_theme')
+alt.theme.enable('dark_theme')
 chart.show()
 ```
 

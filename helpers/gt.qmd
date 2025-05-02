@@ -14,8 +14,8 @@ execute:
 library(gt)
 library(quarto)
 
-united_theme <- theme_brand_gt('../united-brand.yml')
-slate_theme <- theme_brand_gt('../slate-brand.yml')
+light_theme <- theme_brand_gt('../united-brand.yml')
+dark_theme <- theme_brand_gt('../slate-brand.yml')
 ```
 
 ```{r}
@@ -85,9 +85,9 @@ penguins_table <- penguin_counts_wider |>
   ) |>
   opt_stylize(style = 6, color = 'gray')
 
-penguins_table |> united_theme()
+penguins_table |> light_theme()
 
-penguins_table |> slate_theme()
+penguins_table |> dark_theme()
 ```
 
 Here's a [link](https://example.com).

@@ -14,8 +14,8 @@ execute:
 library(quarto)
 library(plotly)
 
-united_theme <- theme_brand_plotly('../united-brand.yml')
-slate_theme <- theme_brand_plotly('../slate-brand.yml')
+light_theme <- theme_brand_plotly('../united-brand.yml')
+dark_theme <- theme_brand_plotly('../slate-brand.yml')
 ```
 
 ### no caption or crossref
@@ -27,9 +27,9 @@ fig <- plot_ly(iris, x = ~Species, y = ~Sepal.Width, type = 'violin',
                meanline = list(visible = TRUE),
                points = 'all')
 
-fig |> united_theme()
+fig |> light_theme()
 
-fig |> slate_theme()
+fig |> dark_theme()
 ```
 
 
@@ -45,9 +45,9 @@ fig <- plot_ly(iris, x = ~Species, y = ~Sepal.Length, type = 'violin',
                meanline = list(visible = TRUE),
                points = 'all')
 
-fig |> united_theme()
+fig |> light_theme()
 
-fig |> slate_theme()
+fig |> dark_theme()
 ```
 
 :::
@@ -66,9 +66,9 @@ fig <- plot_ly(iris, x = ~Species, y = ~Petal.Width, type = 'violin',
                meanline = list(visible = TRUE),
                points = 'all')
 
-fig |> united_theme()
+fig |> light_theme()
 
-fig |> slate_theme()
+fig |> dark_theme()
 ```
 
 Violin plot of Petal Width by Species
@@ -90,9 +90,9 @@ fig <- plot_ly(iris, x = ~Species, y = ~Petal.Length, type = 'violin',
                meanline = list(visible = TRUE),
                points = 'all')
 
-fig |> united_theme()
+fig |> light_theme()
 
-fig |> slate_theme()
+fig |> dark_theme()
 ```
 
 Violin plot of Petal Length by Species

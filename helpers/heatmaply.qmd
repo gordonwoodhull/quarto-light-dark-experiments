@@ -5,14 +5,18 @@ brand:
   dark: ../slate-brand.yml
 ---
 
+Note, this is not fully working - see e.g. the legend background and the labels.
+
+Although the plotly theming partly works, it [looks like heatmaply has a different way to get the rest of the theming right](https://github.com/talgalili/heatmaply/issues/82).
+
 ```{r}
 #| echo: false
 #| warning: false
 library(heatmaply)
 library(quarto)
 
-united_theme <- theme_brand_plotly('../united-brand.yml')
-slate_theme <- theme_brand_plotly('../slate-brand.yml')
+light_theme <- theme_brand_plotly('../united-brand.yml')
+dark_theme <- theme_brand_plotly('../slate-brand.yml')
 ```
 
 
@@ -22,6 +26,6 @@ slate_theme <- theme_brand_plotly('../slate-brand.yml')
 
 fig <- heatmaply(mtcars, k_row = 3, k_col = 2)
 
-fig |> united_theme()
-fig |> slate_theme()
+fig |> light_theme()
+fig |> dark_theme()
 ```

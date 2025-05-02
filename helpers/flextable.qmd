@@ -14,8 +14,8 @@ execute:
 library(flextable)
 library(quarto)
 
-united_theme <- theme_brand_flextable('../united-brand.yml')
-slate_theme <- theme_brand_flextable('../slate-brand.yml')
+light_theme <- theme_brand_flextable('../united-brand.yml')
+dark_theme <- theme_brand_flextable('../slate-brand.yml')
 ```
 
 ```{r}
@@ -31,8 +31,8 @@ ft <- add_footer_lines(ft, "Daily air quality measurements in New York, May to S
 ft <- color(ft, part = "footer", color = "#666666")
 ft <- set_caption(ft, caption = "New York Air Quality Measurements")
 
-ft |> united_theme()
-ft |> slate_theme()
+ft |> light_theme()
+ft |> dark_theme()
 ```
 
 Here's a [link](https://example.com).

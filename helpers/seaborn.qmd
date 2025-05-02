@@ -26,8 +26,8 @@ Below is a complete example to create a violin plot for the Iris dataset using S
 ```{python}
 from quarto import theme_brand_seaborn
 
-united_params = theme_brand_seaborn("../united-brand.yml")
-slate_params = theme_brand_seaborn("../slate-brand.yml")
+light_params = theme_brand_seaborn("../united-brand.yml")
+dark_params = theme_brand_seaborn("../slate-brand.yml")
 ```
 
 
@@ -41,7 +41,7 @@ import matplotlib.pyplot as plt
 iris = sns.load_dataset("iris")
 
 # Set up the matplotlib figure
-sns.set_theme(rc = united_params)
+sns.set_theme(rc = light_params)
 g = sns.violinplot(x="species", y="sepal_length", data=iris, inner="quartile")
 g.set(title="Violin plot of Sepal Length by Species")
 plt.title("Hello")
@@ -49,7 +49,7 @@ plt.show(block=False)
 
 # note, must set new theme before starting new figure
 # otherwise axis area will be wrong color
-sns.set_theme(rc = slate_params)
+sns.set_theme(rc = dark_params)
 plt.figure()
 g = sns.violinplot(x="species", y="sepal_length", data=iris, inner="quartile")
 g.set(title="Violin plot of Sepal Length by Species")
